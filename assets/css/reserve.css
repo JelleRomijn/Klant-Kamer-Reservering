@@ -1,26 +1,29 @@
 /* MARK: header
 */
 
-.header {
-  height: 15vh;
-  width: 100%;
+.reserve-page {
+  width: min(92vw, 700px);
+  margin: 0 auto;
+  padding: 4vh 0 5vh;
+}
 
+.header {
+  height: auto;
+  width: 100%;
   margin-bottom: 2vh;
 
   display: flex;
+  justify-content: center;
 }
 
 .header-logo {
-  height: 10vh;
+  height: auto;
+  width: min(42vw, 180px);
   aspect-ratio: 1/1;
-
-  margin-top: 2.5vh;
-  margin-inline: 5vw;
 }
 
 .header-logo img {
   width: 100%;
-  /* height: 60vw; */
   aspect-ratio: 1/1;
 }
 
@@ -49,67 +52,63 @@
 .reserve-info {
   background-color: var(--bureau-orange);
   color: var(--bureau-wit);
-
-  height: 26vw;
-  width: 86vw;
-
-  margin-inline: 5vw;
-  padding: 2vw;
+  width: 100%;
+  padding: 18px;
+  border-radius: 8px;
+  box-sizing: border-box;
 }
 
 .reserve-info h2 {
-  font-size: 7vw;
+  font-size: clamp(28px, 6vw, 38px);
   font-weight: 700;
-  margin-bottom: 7vw;
+  margin-bottom: 8px;
+}
+
+.reserve-info p {
+  font-size: clamp(15px, 3.5vw, 19px);
+  line-height: 1.4;
 }
 
 /*  MARK: FORM
 */
 
 .form {
-  width: 90vw;
-
-  margin-top: 5vw;
-  margin-inline: 5vw;
+  width: 100%;
+  margin-top: 22px;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .input-field {
-  width: calc(100vw - 10vw);
-  height: 5vw;
-
-  /* margin-top: 5vw; */
-  /* margin-inline: 5vw; */
-  margin-bottom: 10vw;
+  width: 100%;
+  min-height: 42px;
 
   border: none;
   border-bottom: gray 1px solid;
 
-  font-size: 4vw;
+  font-size: clamp(16px, 3.8vw, 22px);
+  background: transparent;
 }
 
 .lokaal-select {
-  /* border: 10px solid var(--bureau-orange); */
+  color: var(--bureau-zwart);
 }
 
 .submit-button {
   background-color: var(--bureau-orange);
   color: var(--bureau-wit);
 
-  height: 10vw;
-  width: 90vw;
+  height: 50px;
+  width: 100%;
+  margin-top: 8px;
 
-  margin-inline: 5vw;
-
-  font-size: 5vw;
+  font-size: clamp(17px, 4vw, 24px);
   font-weight: bold;
 
   border: none;
-  border-radius: 1vw;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 p a {
@@ -122,17 +121,16 @@ p a {
 /* Validation */
 
 .form-group {
-  width: calc(100vw - 5vw);
+  width: 100%;
   position: relative;
-  margin-bottom: 10vw;
-  margin-left: 5vw;
+  margin-bottom: 30px;
 }
 
 .error-message {
   color: #ff3333;
-  font-size: 2.5vw;
+  font-size: clamp(12px, 2.7vw, 15px);
   position: absolute;
-  bottom: -5vw;
+  bottom: -20px;
   left: 0;
   width: 100%;
 }
