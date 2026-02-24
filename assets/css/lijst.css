@@ -1,26 +1,30 @@
 /* MARK: header
 */
 
+.lijst-page {
+  width: min(95vw, 1400px);
+  margin: 0 auto;
+  padding: 2.5vh 0 4vh;
+}
+
 .header {
-  height: 25vh;
+  min-height: 16vh;
   width: 100%;
 
   margin-bottom: 2vh;
 
   display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
 .header-logo {
-  height: 20vh;
+  width: min(20vw, 120px);
   aspect-ratio: 1/1;
-
-  margin-top: 2.5vh;
-  margin-inline: 5vw;
 }
 
 .header-logo img {
   width: 100%;
-  /* height: 60vw; */
   aspect-ratio: 1/1;
 }
 
@@ -28,25 +32,16 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-
-  margin-left: 40vw;
+  align-items: flex-start;
 }
 
 .header-text {
   color: var(--bureau-zwart);
-
-  align-self: center;
-  margin-left: 12vw;
-  /* transform: translate(-50%); */
-
-  font-size: 4vw;
+  font-size: clamp(32px, 4.2vw, 56px);
 }
 
 .header-text-wrapper p {
-  transform: translate(50%);
-
-  font-size: 1.5vw;
+  font-size: clamp(14px, 1.8vw, 22px);
 }
 
 /* MARK: Content
@@ -56,23 +51,27 @@
 
 .filter-bar {
   background-color: var(--bureau-orange);
-  height: 5vh;
-  width: 93vw;
+  min-height: 56px;
+  width: 100%;
   margin: 0 auto;
   margin-bottom: 2vh;
 
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   gap: 10px;
-  padding-right: 1vw;
+  padding: 10px 12px;
+  box-sizing: border-box;
+  border-radius: 8px;
 }
 
 input,
 select {
   border: none;
-  /* border-radius: 5px 0 0 5px; */
-  height: 3vh;
+  min-height: 34px;
+  padding: 0 10px;
+  border-radius: 4px;
+  font-size: clamp(13px, 1.2vw, 16px);
 }
 
 /* MARK: Table
@@ -81,21 +80,21 @@ select {
 th,
 td {
   padding: 8px;
-  font-size: 1.3vw;
+  font-size: clamp(12px, 1vw, 16px);
   font-family: "BUROTO", sans-serif;
 }
 
 /* Wrapper to enable scrolling */
 .table-wrapper {
-  height: 60vh; /* Set a fixed height for scrolling */
+  height: 62vh;
   overflow-y: auto;
   background-color: white;
-  /* border: 1px solid #ccc; */
+  border-radius: 6px;
 }
 
 /* Ensure the table takes full width */
 table {
-  width: 96vw;
+  width: 100%;
   margin: 0 auto;
   border-collapse: separate;
   background-color: white;
@@ -105,32 +104,23 @@ table {
 thead {
   position: sticky;
   top: 0;
-  background: white; /* Ensure header remains visible */
-  /* border-left: 1px rgb(123, 31, 31) solid; */
-  z-index: 2; /* Make sure it stays above the content */
+  background: white;
+  z-index: 2;
   border-top: 2px solid black;
-
-  /* border-collapse: separate; */
-  gap: 0;
 }
 
 /* Ensure th elements are styled properly */
 th {
   padding: 10px;
-  font-size: 1.8vw;
+  font-size: clamp(13px, 1.2vw, 18px);
   font-weight: bold;
   background-color: white;
-  /* color: white; */
   text-align: left;
-
-  /* border: rgb(168, 27, 27) 4px solid; */
   outline: 2px rgb(255, 255, 255) solid;
 }
 
 .table-item:nth-child(even) {
   background-color: #d2d2d2;
-  /* margin-top: 2px; */
-  /* margin-bottom: 2px; */
 }
 
 .item-edit {
@@ -142,8 +132,8 @@ th {
   border: none;
   border-radius: 5px;
   text-align: center;
-  /* padding: 5px 10px; */
   cursor: pointer;
+  font-size: clamp(12px, 0.95vw, 15px);
 }
 
 .item-edit:hover {
@@ -159,8 +149,8 @@ th {
   border: none;
   border-radius: 5px;
   text-align: center;
-  /* padding: 5px 10px; */
   cursor: pointer;
+  font-size: clamp(12px, 0.95vw, 15px);
 }
 
 .item-delete:hover {
@@ -195,7 +185,7 @@ th {
 */
 /* Aanvullende CSS voor edit functionaliteit */
 .item-edit.active {
-  background-color: #4caf50; /* Groen wanneer actief */
+  background-color: #4caf50;
 }
 
 /* Bewerkbare cellen */
@@ -208,7 +198,7 @@ th {
   height: 100%;
   padding: 8px;
   border: none;
-  font-size: 1.3vw;
+  font-size: clamp(12px, 1vw, 16px);
   font-family: "BUROTO", sans-serif;
   box-sizing: border-box;
 }
@@ -263,7 +253,7 @@ th {
   height: 100%;
   padding: 8px;
   border: none;
-  font-size: 1.3vw;
+  font-size: clamp(12px, 1vw, 16px);
   font-family: "BUROTO", sans-serif;
   box-sizing: border-box;
   background-color: #e8f4f8;
