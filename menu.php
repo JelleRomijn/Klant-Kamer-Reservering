@@ -11,28 +11,26 @@
     <link rel="icon" type="image/x-icon" href="BUREAU-LOGO.ico">
 </head>
 <body>
-    <main class="menu-page">
-        <div class="logo-container">
-            <img class="logo" src="Layer 2.png" alt="HETBUREAU-LOGO-ZWART">
+    <div class="logo-container">
+        <img class="logo" src="Layer 2.png" alt="HETBUREAU-LOGO-ZWART">
+    </div>
+    <div class="student-number-container">
+        <div class="student-number">
+            <p>000000</p>
+            <!-- student numemr/naam uit database via php -->
         </div>
-        <div class="student-number-container">
-            <div class="student-number">
-                <p>000000</p>
-                <!-- student numemr/naam uit database via php -->
-            </div>
-            <div class="student-number-text">
-                <p>Naam</p>
-            </div>
+        <div class="student-number-text">
+            <p>Naam</p>
         </div>
-        <div class="menu-buttons">
-            <a class="button-reserveringen" href="reserve.php">
-                <p>Reserveren</p>
-            </a>
-            <a class="button-instellingen" href="lijst.php">
-                <p>Reserveringen</p>
-            </a>
-        </div>
-    </main>
+    </div>
+    <div class="menu-buttons">
+        <a class="button-reserveringen" href="reserve.php">
+            <p>Reserveren</p>
+        </a>
+        <a class="button-instellingen" href="#">
+            <p>Reserveringen</p>
+        </a>
+    </div>
 </body>
 
 </html>

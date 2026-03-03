@@ -12,48 +12,47 @@
 </head>
 
 <body>
-    <main class="lijst-page">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-logo">
-                <img src="Layer 2.png" alt="HETBUREAU-LOGO-ZWART">
-            </div>
-            <div class="header-text-wrapper">
-                <h1 class="header-text">Beheren</h1>
-                <p>als <i>docent naam</i></p>
-            </div>
-        </header>
-        <div class="content">
-            <!-- Filter en zoekfunctie -->
-            <div class="filter-bar">
-                <select id="lokaal-filter">
-                    <option value="all">Alle</option>
-                    <option value="W002">W002</option>
-                    <option value="W002a">W002a</option>
-                    <option value="W002b">W002b</option>
-                    <option value="W003">W003</option>
-                    <option value="W003a">W003a</option>
-                    <option value="W003b">W003b</option>
-                </select>
-                <input type="date" id="datum-filter">
-                <input type="search" id="zoek-filter" placeholder="Zoeken...">
-            </div>
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th>Datum</th>
-                            <th>Start tijd</th>
-                            <th>Eind tijd</th>
-                            <th>Lokaal</th>
-                            <th>Gepland door</th>
-                            <th>Klant</th>
-                            <th>Type</th>
-                        </tr>
-                    </thead>
-                    <tbody id="reserveringen-tabel">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-logo">
+            <img src="Layer 2.png" alt="HETBUREAU-LOGO-ZWART">
+        </div>
+        <div class="header-text-wrapper">
+            <h1 class="header-text">Beheren</h1>
+            <p>als <i>docent naam</i></p>
+        </div>
+    </header>
+    <div class="content">
+        <!-- Filter en zoekfunctie -->
+        <div class="filter-bar">
+            <select id="lokaal-filter">
+                <option value="all">Alle</option>
+                <option value="W002">W002</option>
+                <option value="W002a">W002a</option>
+                <option value="W002b">W002b</option>
+                <option value="W003">W003</option>
+                <option value="W003a">W003a</option>
+                <option value="W003b">W003b</option>
+            </select>
+            <input type="date" id="datum-filter">
+            <input type="search" id="zoek-filter" placeholder="Zoeken...">
+        </div>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Datum</th>
+                        <th>Start tijd</th>
+                        <th>Eind tijd</th>
+                        <th>Lokaal</th>
+                        <th>Gepland door</th>
+                        <th>Klant</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody id="reserveringen-tabel">
                     <?php
                     // Database verbinding maken
                     include_once "assets/core/connect.php";
@@ -87,11 +86,10 @@
                     }
                     $conn->close();
                     ?>
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
-    </main>
+    </div>
 
     <!-- Bevestigingsmodal voor verwijderen -->
     <div id="delete-modal" class="modal">
