@@ -1,7 +1,7 @@
 <?php
 
 
-$dbhost = "localhost";
+$dbhost = "mysql_db";
 $dbuser = "root";
 $dbpass = "";
 $dbname = "bureau_kamer";
