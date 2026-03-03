@@ -29,48 +29,47 @@ $stmt->close();
 
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Het Bureau - Kamer Reservering</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/index.css">
-
-
-    <title>Klant-Kamer-Reservering</title>
-    <link rel="icon" type="image/x-icon" href="BUREAU-LOGO.ico">
-    <link rel="stylesheet" href="assets\css\index.css">
 </head>
-
 <body>
-    <!-- Header -->
-    <header class="reserve-header">
-        <div class="HETBUREAU-LOGO">
-            <img src="Layer 2.png" alt="HETBUREAU-LOGO-ZWART">
-        </div>
-        <div class="time-date-info">
-            <div class="label" id="time-label">Tijd:</div>
-            <div class="current" id="time-current">
-                <?php
-                date_default_timezone_set('Europe/Amsterdam');
-                echo date("H:i");
-                ?>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-logo">
+                <img src="Layer 2.png" alt="Het Bureau Logo">
             </div>
-            <div class="label" id="date-label">Datum:</div>
-            <div class="current" id="date-current">
-                <?php
-                echo date("d-m-Y");
-                ?>
+            <h1 class="hero-title">Kamer Reservering</h1>
+            <p class="hero-sub">Reserveer eenvoudig een vergaderruimte bij Het Bureau</p>
+            <div class="hero-actions">
+                <a href="reserve.php" class="hero-btn primary">Reserveer Nu</a>
+                <a href="lijst.php" class="hero-btn secondary">Bekijk Lijst</a>
+            </div>
+            <div class="hero-info-bar">
+                <div class="info-chip">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span><?php date_default_timezone_set('Europe/Amsterdam'); echo date("H:i"); ?></span>
+                </div>
+                <div class="info-chip">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    <span><?php echo date("d-m-Y"); ?></span>
+                </div>
+                <div class="info-chip qr-chip">
+                    <span>Scan QR</span>
+                    <img src="./assets/img/qr.png" alt="QR Code" class="mini-qr">
+                </div>
             </div>
         </div>
-        <div class="qr">
-            <p>SCAN MIJ!</p>
-            <div class="qr-box">
-                <img src="./assets/img/qr.png" alt="qr-code">
-            </div>
-        </div>
-    </header>
+    </section>
+
     <!-- VANDAAG KALENDER -->
 
     <div class="reserve-vandaag">
