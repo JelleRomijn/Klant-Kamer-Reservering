@@ -57,6 +57,24 @@ INSERT INTO `reserveringen` (`reservering_id`, `lokaal`, `datum`, `start_tijd`, 
 
 -- --------------------------------------------------------
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `student_nummer` int(6) NOT NULL,
+  `voornaam` varchar(255) NOT NULL,
+  `achternaam` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL UNIQUE,
+  `password` varchar(255) NOT NULL,
+  `gemaakt_op` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `student`
 --
@@ -104,6 +122,14 @@ ALTER TABLE `reserveringen`
   ADD PRIMARY KEY (`reservering_id`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `student_nummer` (`student_nummer`);
+
+--
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
@@ -118,6 +144,12 @@ ALTER TABLE `student`
 --
 ALTER TABLE `reserveringen`
   MODIFY `reservering_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `student`

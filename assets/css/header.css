@@ -1,7 +1,10 @@
 :root {
   --bureau-orange: #ff8f1c;
+  --bureau-orange-dark: #e67e0c;
   --bureau-wit: #f4f4f4;
-  --bureau-zwart: #000000;
+  --bureau-zwart: #1a1a1a;
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -10,54 +13,59 @@
   font-family: "BUROTO", sans-serif;
 }
 
-
 @media (max-width: 1080px) {
   .reserve-header {
     display: flex;
-    
     width: 85%;
     height: 14vh;
-    padding: 0 0;
+    padding: 0;
     margin: 2vh 10vw 10vh 10vw;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
   }
   
   .HETBUREAU-LOGO {
     z-index: 100;
     height: 100%;
-    /* width: 50%; */
+    padding: 2vh;
   }
   
   .HETBUREAU-LOGO img {
     height: 100%;
     width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
   }
   
   .label:first-child {
-    border-radius: 0px 100px 0px 0px;
+    border-radius: 0px 8px 8px 0px;
   }
   
   .label {
     background-color: var(--bureau-zwart);
     color: var(--bureau-wit);
-    
-    /* height: 49.726px; */
     height: 20%;
     width: 200px;
-    
     font-size: large;
     font-weight: bold;
+    padding: 0.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .current {
-    background-color: var(--bureau-orange);
+    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
     color: var(--bureau-wit);
-    
-    /* height: 74.589px; */
     height: 30%;
     width: 300px;
-    
     font-size: 3.4em;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5vw;
   }
   
   .current:last-child {
@@ -66,11 +74,9 @@
     width: 50px;
   }
   
-  /* MARK: QR 
-  */
+  /* MARK: QR */
   .qr {
     color: var(--bureau-wit);
-    
     width: 100%;
     height: 100%;
     display: flex;
@@ -80,76 +86,87 @@
   }
   
   .qr p {
-    background-color: var(--bureau-orange);
+    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
     font-size: 1em;
     font-weight: bold;
     height: fit-content;
     width: fit-content;
+    padding: 0.5vw 1vw;
+    border-radius: 4px;
   }
   
   .qr-box {
-    background-color: var(--bureau-orange);
+    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
     width: 100%;
     height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
   }
   
   .qr-box img {
-    background-color: gray;
-    
+    background-color: white;
     height: calc(100% - 4px);
     width: calc(100% - 4px);
+    border-radius: 4px;
   }
 }
+
 @media (min-width: 1920px) {
   .reserve-header {
     display: flex;
-    
     width: 85%;
     height: 14vh;
-    padding: 0 0;
+    padding: 0;
     margin: 2vh 10vw 10vh 10vw;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
   }
   
   .HETBUREAU-LOGO {
     z-index: 100;
     height: 100%;
-    /* width: 50%; */
+    padding: 2vh;
   }
   
   .HETBUREAU-LOGO img {
     height: 100%;
     width: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
   }
   
   .label:first-child {
-    border-radius: 0px 100px 0px 0px;
+    border-radius: 0px 8px 8px 0px;
   }
   
   .label {
     background-color: var(--bureau-zwart);
     color: var(--bureau-wit);
-    
-    /* height: 49.726px; */
     height: 20%;
     width: 200px;
-    
     font-size: large;
     font-weight: bold;
+    padding: 0.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .current {
-    background-color: var(--bureau-orange);
+    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
     color: var(--bureau-wit);
-    
-    /* height: 74.589px; */
     height: 30%;
     width: 300px;
-    
     font-size: 3.4em;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5vw;
   }
   
   .current:last-child {
@@ -158,11 +175,9 @@
     width: 300px;
   }
   
-  /* MARK: QR 
-  */
+  /* MARK: QR */
   .qr {
     color: var(--bureau-wit);
-    
     width: 100%;
     height: 100%;
     display: flex;
@@ -172,26 +187,30 @@
   }
   
   .qr p {
-    background-color: var(--bureau-orange);
+    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
     font-size: 1em;
     font-weight: bold;
     height: fit-content;
     width: fit-content;
+    padding: 0.5vw 1vw;
+    border-radius: 4px;
   }
   
   .qr-box {
-    background-color: var(--bureau-orange);
+    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
     width: 100%;
     height: 90%;
     display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.qr-box img {
-  background-color: gray;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+  }
   
-  height: calc(100% - 4px);
-  width: calc(100% - 4px);
-}
+  .qr-box img {
+    background-color: white;
+    height: calc(100% - 4px);
+    width: calc(100% - 4px);
+    border-radius: 4px;
+  }
 }

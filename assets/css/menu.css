@@ -1,68 +1,64 @@
 body {
-    background-color: var(--bureau-orange);
+    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
     width: 100vw;
+    height: 100%;
     min-height: 100vh;
 }
 
-.menu-page {
-    width: min(90vw, 700px);
-    margin: 0 auto;
-    padding: 3vh 0 5vh;
-}
-
 .logo-container {
-    height: auto;
+    height: 40vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 4vh;
+    animation: fadeInDown 0.6s ease-out;
 }
 
 .logo {
-    width: min(62vw, 320px);
+    width: 60vw;
     aspect-ratio: 1/1;
+    margin: auto;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15));
+    transition: var(--transition);
+}
+
+.logo:hover {
+    transform: scale(1.05);
 }
 
 .student-number-container {
     color: var(--bureau-wit);
-
-    min-height: 13vh;
-    width: 100%;
-
+    height: 13vh;
+    width: 80vw;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    margin: 0 auto;
+    
+    margin: 0 10%;
     padding-bottom: 2vh;
-
-    border-bottom: 4px solid white;
-
-    font-size: clamp(34px, 8vw, 54px);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+    
+    font-size: 8vw;
     font-weight: bold;
-}
-
-.student-number-text p {
-    font-size: clamp(20px, 5vw, 30px);
+    animation: fadeInUp 0.6s ease-out 0.2s both;
 }
 
 .menu-buttons {
     color: var(--bureau-wit);
-
-    width: 100%;
+    height: auto;
+    width: 80vw;
     
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-
-    margin: 0 auto;
-    padding-top: 2vh;
-
-    gap: 1.2vh;
-
-    font-size: clamp(32px, 8vw, 50px);
+    justify-content: center;
+    align-items: center;
+    
+    margin: 0 10%;
+    padding-top: 3vh;
+    gap: 2vh;
+    
+    font-size: 8vw;
     font-weight: bold;
 }
 
@@ -70,15 +66,61 @@ body {
     text-decoration: none;
     color: var(--bureau-wit);
     display: flex;
+    align-items: center;
+    padding: 2vh 4vw;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    animation: fadeInUp 0.6s ease-out both;
+}
+
+.menu-buttons a:nth-child(1) { animation-delay: 0.3s; }
+.menu-buttons a:nth-child(2) { animation-delay: 0.4s; }
+.menu-buttons a:nth-child(3) { animation-delay: 0.5s; }
+.menu-buttons a:nth-child(4) { animation-delay: 0.6s; }
+
+.menu-buttons a:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateX(5px);
 }
 
 .menu-buttons p {
-    text-decoration: underline;
-    text-decoration-color: var(--bureau-wit);
-    text-underline-offset: 0.1em;
+    text-decoration: none;
+    margin: 0;
 }
 
 .menu-buttons a::before {
-    content: "•";
-    margin-right: 14px;
+    content: "→";
+    margin-right: 3vw;
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: translateX(-5px);
+}
+
+.menu-buttons a:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

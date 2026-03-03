@@ -10,12 +10,11 @@
 .header {
   min-height: 16vh;
   width: 100%;
-
   margin-bottom: 2vh;
-
   display: flex;
   align-items: center;
-  gap: 18px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .header-logo {
@@ -44,18 +43,15 @@
   font-size: clamp(14px, 1.8vw, 22px);
 }
 
-/* MARK: Content
-*/
-/* MARK: Filter
-*/
-
+/* MARK: Content */
+/* MARK: Filter */
 .filter-bar {
   background-color: var(--bureau-orange);
   min-height: 56px;
   width: 100%;
   margin: 0 auto;
   margin-bottom: 2vh;
-
+  
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -74,14 +70,19 @@ select {
   font-size: clamp(13px, 1.2vw, 16px);
 }
 
-/* MARK: Table
-*/
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 143, 28, 0.2);
+}
 
+/* MARK: Table */
 th,
 td {
   padding: 8px;
   font-size: clamp(12px, 1vw, 16px);
   font-family: "BUROTO", sans-serif;
+  text-align: left;
 }
 
 /* Wrapper to enable scrolling */
@@ -96,7 +97,7 @@ td {
 table {
   width: 100%;
   margin: 0 auto;
-  border-collapse: separate;
+  border-collapse: collapse;
   background-color: white;
 }
 
@@ -124,21 +125,30 @@ th {
 }
 
 .item-edit {
-  background-color: var(--bureau-orange);
-  color: var(--bureau-wit);
-
-  width: 90px;
-
+  background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
+  color: white;
+  
+  padding: 8px 16px;
+  width: auto;
+  min-width: 90px;
+  
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   text-align: center;
   cursor: pointer;
   font-size: clamp(12px, 0.95vw, 15px);
 }
 
 .item-edit:hover {
-  background-color: #f28517;
+  background: linear-gradient(135deg, var(--bureau-orange-dark) 0%, var(--bureau-orange) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 143, 28, 0.3);
 }
+
+.item-edit:active {
+  transform: translateY(0);
+}
+
 
 .item-delete {
   background-color: red;

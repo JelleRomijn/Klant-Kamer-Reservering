@@ -11,7 +11,6 @@
   height: auto;
   width: 100%;
   margin-bottom: 2vh;
-
   display: flex;
   justify-content: center;
 }
@@ -25,32 +24,33 @@
 .header-logo img {
   width: 100%;
   aspect-ratio: 1/1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
 }
 
 .header-text-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  flex: 1;
 }
 
 .header-text {
   color: var(--bureau-zwart);
-
-  align-self: center;
-  margin-left: 20vw;
-  /* transform: translate(-50%); */
+  font-size: 6vw;
+  font-weight: 700;
 }
 
 .header-text-wrapper p {
-  transform: translate(50%);
+  color: var(--bureau-grijs);
+  font-size: 3vw;
+  transform: none;
+  margin-top: 0.5vw;
 }
 
-/*  MARK: RESERVE INFO
-*/
-
+/* MARK: RESERVE INFO */
 .reserve-info {
-  background-color: var(--bureau-orange);
+  background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
   color: var(--bureau-wit);
   width: 100%;
   padding: 18px;
@@ -69,9 +69,13 @@
   line-height: 1.4;
 }
 
-/*  MARK: FORM
-*/
+.reserve-info p {
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 4vw;
+  line-height: 1.6;
+}
 
+/* MARK: FORM */
 .form {
   width: 100%;
   margin-top: 22px;
@@ -96,7 +100,7 @@
 }
 
 .submit-button {
-  background-color: var(--bureau-orange);
+  background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
   color: var(--bureau-wit);
 
   height: 50px;
@@ -105,7 +109,8 @@
 
   font-size: clamp(17px, 4vw, 24px);
   font-weight: bold;
-
+  font-family: "BUROTO", sans-serif;
+  
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -115,6 +120,7 @@ p a {
   color: var(--bureau-orange);
   font-weight: bold;
   text-decoration: none;
+  transition: var(--transition);
 }
 
 /*  MARK: FORM VALIDATION
@@ -126,6 +132,7 @@ p a {
   margin-bottom: 30px;
 }
 
+/* MARK: FORM VALIDATION */
 .error-message {
   color: #ff3333;
   font-size: clamp(12px, 2.7vw, 15px);
@@ -135,10 +142,35 @@ p a {
   width: 100%;
 }
 
-.input-field {
-  margin-bottom: 0;
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.input-field.error {
-  border-bottom: 1px solid #ff3333;
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
