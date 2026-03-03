@@ -1,60 +1,63 @@
 body {
-    background-color: var(--bureau-orange);
+    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
     width: 100vw;
     height: 100%;
+    min-height: 100vh;
 }
 
 .logo-container {
-    /* width: 100vw; */
     height: 40vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* aspect-ratio: 1/1; */
+    animation: fadeInDown 0.6s ease-out;
 }
 
 .logo {
     width: 60vw;
-    /* max-width: 300px; */
     aspect-ratio: 1/1;
     margin: auto;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15));
+    transition: var(--transition);
+}
+
+.logo:hover {
+    transform: scale(1.05);
 }
 
 .student-number-container {
     color: var(--bureau-wit);
-
     height: 13vh;
-    width: 80vw;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    margin: 0 10%;
-
-    border-bottom: 4px solid white;
-
-    font-size: 8vw;
-    font-weight: bold;
-}
-
-.menu-buttons {
-    color: var(--bureau-wit);
-
-    height: 12vh;
     width: 80vw;
     
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    
     margin: 0 10%;
-    padding-top: 2vh;
+    padding-bottom: 2vh;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+    
+    font-size: 8vw;
+    font-weight: bold;
+    animation: fadeInUp 0.6s ease-out 0.2s both;
+}
 
-    gap: 1vh;
-
+.menu-buttons {
+    color: var(--bureau-wit);
+    height: auto;
+    width: 80vw;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    margin: 0 10%;
+    padding-top: 3vh;
+    gap: 2vh;
+    
     font-size: 8vw;
     font-weight: bold;
 }
@@ -63,16 +66,61 @@ body {
     text-decoration: none;
     color: var(--bureau-wit);
     display: flex;
+    align-items: center;
+    padding: 2vh 4vw;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+    animation: fadeInUp 0.6s ease-out both;
+}
+
+.menu-buttons a:nth-child(1) { animation-delay: 0.3s; }
+.menu-buttons a:nth-child(2) { animation-delay: 0.4s; }
+.menu-buttons a:nth-child(3) { animation-delay: 0.5s; }
+.menu-buttons a:nth-child(4) { animation-delay: 0.6s; }
+
+.menu-buttons a:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateX(5px);
 }
 
 .menu-buttons p {
-    text-decoration: underline;
-    text-decoration-color: var(--bureau-wit);
-    text-underline-offset: 0.1em; /* Adjust the value to increase spacing */
+    text-decoration: none;
+    margin: 0;
 }
 
 .menu-buttons a::before {
-    content: "•";
+    content: "→";
     margin-right: 3vw;
-    /* text-decoration: none;    */
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: translateX(-5px);
+}
+
+.menu-buttons a:hover::before {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

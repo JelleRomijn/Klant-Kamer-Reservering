@@ -7,6 +7,8 @@ $ALLOWED_SUBNETS = [
     '192.168.1.0/24',
     '10.0.0.0/8',
     '172.16.0.0/12',
+    // Allow localhost testing (IPv4 loopback)
+    '127.0.0.0/8',
 ];
 
 /**
@@ -32,6 +34,10 @@ function ip_in_cidr($ip, $cidr) {
  */
 function is_ip_allowed($ip) {
     global $ALLOWED_SUBNETS;
+    // Normalize IPv6 loopback to IPv4 loopback for local testing
+    if ($ip === '::1') {
+        $ip = '127.0.0.1';
+    }
     foreach ($ALLOWED_SUBNETS as $cidr) {
         if (ip_in_cidr($ip, $cidr)) return true;
     }
