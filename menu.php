@@ -27,7 +27,7 @@
         <a class="button-reserveringen" href="reserve.php">
             <p>Reserveren</p>
         </a>
-        <a class="button-instellingen" href="#">
+        <a class="button-instellingen" href="lijst.php">
             <p>Reserveringen</p>
         </a>
     </div>

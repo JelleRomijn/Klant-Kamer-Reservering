@@ -7,10 +7,16 @@
   padding: 4vh 0 5vh;
 }
 
+body {
+  width: min(92vw, 700px);
+  margin: 0 auto;
+  padding: 3vh 0 5vh;
+}
+
 .header {
   height: auto;
   width: 100%;
-  margin-bottom: 2vh;
+  margin-bottom: 2.5vh;
   display: flex;
   justify-content: center;
 }
@@ -56,6 +62,7 @@
   padding: 18px;
   border-radius: 8px;
   box-sizing: border-box;
+  box-shadow: var(--shadow-sm);
 }
 
 .reserve-info h2 {
@@ -71,7 +78,7 @@
 
 .reserve-info p {
   color: rgba(255, 255, 255, 0.95);
-  font-size: 4vw;
+  font-size: clamp(15px, 3.5vw, 19px);
   line-height: 1.6;
 }
 
@@ -87,12 +94,18 @@
 .input-field {
   width: 100%;
   min-height: 42px;
+  padding: 8px 6px;
 
   border: none;
-  border-bottom: gray 1px solid;
+  border-bottom: 1px solid #d0d0d0;
 
   font-size: clamp(16px, 3.8vw, 22px);
   background: transparent;
+}
+
+.input-field:focus {
+  outline: none;
+  border-bottom-color: var(--bureau-orange);
 }
 
 .lokaal-select {
@@ -114,6 +127,12 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  transition: var(--transition);
+}
+
+.submit-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 p a {

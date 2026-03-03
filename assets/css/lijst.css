@@ -7,14 +7,22 @@
   padding: 2.5vh 0 4vh;
 }
 
+body {
+  padding: 2vh 0 4vh;
+}
+
 .header {
   min-height: 16vh;
-  width: 100%;
+  width: min(95vw, 1400px);
+  margin: 0 auto;
   margin-bottom: 2vh;
   display: flex;
   align-items: center;
+  gap: 18px;
+  padding: 12px 16px;
   background-color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
 }
 
 .header-logo {
@@ -32,6 +40,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  gap: 4px;
 }
 
 .header-text {
@@ -41,6 +50,11 @@
 
 .header-text-wrapper p {
   font-size: clamp(14px, 1.8vw, 22px);
+}
+
+.content {
+  width: min(95vw, 1400px);
+  margin: 0 auto;
 }
 
 /* MARK: Content */
@@ -70,6 +84,10 @@ select {
   font-size: clamp(13px, 1.2vw, 16px);
 }
 
+#zoek-filter {
+  min-width: min(40vw, 260px);
+}
+
 input:focus,
 select:focus {
   outline: none;
@@ -91,6 +109,7 @@ td {
   overflow-y: auto;
   background-color: white;
   border-radius: 6px;
+  box-shadow: var(--shadow-sm);
 }
 
 /* Ensure the table takes full width */
