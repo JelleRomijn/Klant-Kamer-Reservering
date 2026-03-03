@@ -40,7 +40,7 @@ $stmt->close();
 
     <title>Klant-Kamer-Reservering</title>
     <link rel="icon" type="image/x-icon" href="BUREAU-LOGO.ico">
-
+    <link rel="stylesheet" href="assets\css\index.css">
 </head>
 
 <body>

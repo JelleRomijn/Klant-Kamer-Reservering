@@ -1,6 +1,6 @@
 /* MARK: 1080PX
  */
-@media (max-width: 1080px) {
+@media (max-width: 2000px) {
   /* body {
     background-color: red;
   } */
@@ -16,7 +16,7 @@
 
   .HETBUREAU-LOGO {
     z-index: 100;
-    height: 100%;
+    height: 110%;
     /* width: 50%; */
   }
 
@@ -32,13 +32,11 @@
   .label {
     background-color: var(--bureau-zwart);
     color: var(--bureau-wit);
-
-    /* height: 49.726px; */
     height: 20%;
-    width: 200px;
-
-    font-size: large;
-    font-weight: bold;
+    width: 190px;
+    font-size: 1em;
+    font-weight: 500;
+    padding: 2px 10px;
   }
 
   .current {
@@ -47,16 +45,17 @@
 
     /* height: 74.589px; */
     height: 30%;
-    width: 300px;
+    width: 59.8%;
+    padding-left: 8%;
 
-    font-size: 3.4em;
+    font-size: 2em;
     font-weight: bold;
   }
 
   .current:last-child {
     transform: translate(-100px, 0);
     padding-left: 100px;
-    width: 300px;
+    width: 210px;
   }
 
   /* MARK: QR 
@@ -150,21 +149,18 @@
   .current {
     background-color: var(--bureau-orange);
     color: var(--bureau-wit);
-
-    /* height: 74.589px; */
     height: 30%;
-    width: 290px;
-
-    padding-left: 10px;
-
-    font-size: 2.6em;
-    font-weight: bold;
+    width: 140px;
+    padding-left: 8px;
+    font-size: 1.3em;
+    font-weight: 600;
+    border-radius: 6px;
   }
 
   .current:last-child {
-    transform: translate(-60px, 0);
-    padding-left: 70px;
-    width: 290px;
+    transform: none;
+    padding-left: 8px;
+    width: 140px;
   }
 
   /* MARK: QR 
@@ -224,7 +220,7 @@
   border-radius: 100px 100px 0px 0px;
   font-family: "BUROTO", sans-serif;
   color: #ffffff;
-  font-size: 7rem;
+  font-size: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -366,7 +362,7 @@
   border-radius: 100px 100px 0px 0px;
   font-family: "BUROTO", sans-serif;
   color: #ffffff;
-  font-size: 5rem;
+  font-size: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -499,7 +495,7 @@
 */
 .reserveringen {
   width: 100%;
-  height: 80%;
+  height: 90%;
   background-color: var(--bureau-orange);
 }
 

@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "BUROTO";
-  src: url("../../assets/fonts/BUROTO/BurotoRegular.ttf") format("truetype");
+  src: url("../fonts/BUROTO/BurotoRegular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
