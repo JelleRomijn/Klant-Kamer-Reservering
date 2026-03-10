@@ -98,10 +98,13 @@ document.addEventListener("DOMContentLoaded", function () {
           isValid = false;
 
           // Toon een foutmelding met de overlappende tijden
-          let overlapMessage = "Dit lokaal is al gereserveerd tijdens deze tijd:";
-          data.overlaps.forEach((overlap) => {
-            overlapMessage += `\n${overlap.lokaal}: ${overlap.start_tijd} - ${overlap.eind_tijd}`;
-          });
+          let overlapMessage = data.message || "Dit lokaal is al gereserveerd tijdens deze tijd:";
+          if (Array.isArray(data.overlaps) && data.overlaps.length > 0) {
+            overlapMessage = "Dit lokaal is al gereserveerd tijdens deze tijd:";
+            data.overlaps.forEach((overlap) => {
+              overlapMessage += `\n${overlap.lokaal}: ${overlap.start_tijd} - ${overlap.eind_tijd}`;
+            });
+          }
 
           document.getElementById("eind-tijd-error").textContent = overlapMessage;
           eindTijd.classList.add("error");
