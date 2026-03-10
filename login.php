@@ -89,8 +89,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn">Sign In</button>
         </form>
 
+        <p class="forgot-link"><a href="forgot-password.php">Wachtwoord vergeten?</a></p>
         <p>Nog geen account? <a href="register.php">Registreren</a></p>
-        <p>Of <a href="index.php">Selecteer een lokaal</a></p>
+        
+        
     </div>
 </body>
 

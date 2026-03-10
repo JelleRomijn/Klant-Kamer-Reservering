@@ -50,7 +50,7 @@ $stmt->close();
             <h1 class="hero-title">Kamer Reservering</h1>
             <p class="hero-sub">Reserveer eenvoudig een vergaderruimte bij Het Bureau</p>
             <div class="hero-actions">
-                <a href="reserve.php" class="hero-btn primary">Reserveer Nu</a>
+                <a href="login.php" class="hero-btn primary">Reserveer Nu</a>
                 <a href="lijst.php" class="hero-btn secondary">Bekijk Lijst</a>
             </div>
             <div class="hero-info-bar">

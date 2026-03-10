@@ -108,6 +108,11 @@ p a:hover {
     text-decoration: underline;
 }
 
+.forgot-link {
+    margin-top: 1vw;
+    margin-bottom: 4vw;
+}
+
 @keyframes fadeInDown {
     from {
         opacity: 0;

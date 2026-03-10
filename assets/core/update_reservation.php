@@ -1,4 +1,7 @@
 <?php
+require_once "require_login.php";
+require_user_login(true);
+
 // Database verbinding maken
 include_once "connect.php";
 
