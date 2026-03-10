@@ -31,13 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Event listeners voor dubbel klikken op cellen
-  tabel.addEventListener("dblclick", function (e) {
-    if (e.target.classList.contains("editable") && currentEditRow) {
-      makeEditable(e.target);
-    }
-  });
-
   // Event listeners voor delete modal
   confirmDeleteBtn.addEventListener("click", function () {
     if (deleteReservationId) {
@@ -60,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Sla wijzigingen op
       saveChanges(row);
       button.classList.remove("active");
+      button.textContent = "EDIT";
       currentEditRow = null;
 
       // Verwijder alle input velden
@@ -87,8 +81,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Maak deze rij bewerkbaar
       button.classList.add("active");
+      button.textContent = "OPSLAAN";
       currentEditRow = row;
+      makeRowEditable(row);
     }
+  }
+
+  // Zet alle bewerkbare cellen van een rij direct in edit-modus
+  function makeRowEditable(row) {
+    row.querySelectorAll(".editable").forEach((cell) => {
+      makeEditable(cell);
+    });
   }
 
   // Functie om een cel bewerkbaar te maken
@@ -127,12 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cell.appendChild(select);
         select.focus();
 
-        // Event listener voor wijzigingen
-        select.addEventListener("change", function () {
-          saveChanges(cell.closest("tr"));
-          cell.textContent = select.value;
-          cell.classList.remove("editing");
-        });
+        // Select blijft actief tot gebruiker op OPSLAAN klikt.
       }
       // Als het veld 'type' is, maak dan een select box
       else if (cell.dataset.field === "type") {
@@ -163,12 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cell.appendChild(select);
         select.focus();
 
-        // Event listener voor wijzigingen
-        select.addEventListener("change", function () {
-          saveChanges(cell.closest("tr"));
-          cell.textContent = select.value;
-          cell.classList.remove("editing");
-        });
+        // Select blijft actief tot gebruiker op OPSLAAN klikt.
       } else {
         // Voor andere velden, gebruik een input zoals voorheen
         const input = document.createElement("input");
@@ -190,12 +183,20 @@ document.addEventListener("DOMContentLoaded", function () {
         cell.appendChild(input);
         input.focus();
 
-        // Event listener voor Enter toets
+        // Enter slaat direct op voor snelle workflow.
         input.addEventListener("keydown", function (e) {
           if (e.key === "Enter") {
             saveChanges(cell.closest("tr"));
             cell.textContent = input.value;
             cell.classList.remove("editing");
+
+            const row = cell.closest("tr");
+            const editButton = row ? row.querySelector(".item-edit.active") : null;
+            if (editButton) {
+              editButton.classList.remove("active");
+              editButton.textContent = "EDIT";
+            }
+            currentEditRow = null;
           }
         });
       }
