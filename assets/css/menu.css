@@ -1,114 +1,94 @@
 body {
     background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
-    width: 100%;
     min-height: 100vh;
+    padding: 4vh 5vw 6vh;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 3vh 5vw 5vh;
 }
 
 .logo-container {
-    width: min(90vw, 640px);
-    min-height: 28vh;
+    width: min(90vw, 680px);
+    min-height: 26vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2vh;
-    animation: fadeInDown 0.6s ease-out;
+    animation: fadeInDown 0.5s ease-out;
 }
 
 .logo {
-    width: min(56vw, 280px);
+    width: min(54vw, 260px);
     aspect-ratio: 1/1;
-    margin: auto;
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.15));
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.16));
     transition: var(--transition);
 }
 
 .logo:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 .student-number-container {
+    width: min(90vw, 680px);
+    margin-top: 1vh;
+    padding: 1.5vh 0 2vh;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.32);
     color: var(--bureau-wit);
-    width: min(90vw, 640px);
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-    margin: 0;
-    padding-bottom: 2vh;
-    border-bottom: 3px solid rgba(255, 255, 255, 0.3);
-    
-    font-size: clamp(28px, 6vw, 52px);
-    font-weight: bold;
-    animation: fadeInUp 0.6s ease-out 0.2s both;
+    text-align: center;
+    animation: fadeInUp 0.5s ease-out 0.1s both;
+}
+
+.student-number {
+    font-size: clamp(30px, 7vw, 54px);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.student-number-text {
+    margin-top: 2px;
+    font-size: clamp(14px, 2.8vw, 22px);
+    opacity: 0.95;
 }
 
 .menu-buttons {
-    color: var(--bureau-wit);
-    height: auto;
-    width: min(90vw, 640px);
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    
-    margin: 0;
-    padding-top: 3vh;
+    width: min(90vw, 680px);
+    margin-top: 3vh;
+
+    display: grid;
     gap: 14px;
-    
-    font-size: clamp(24px, 5vw, 42px);
-    font-weight: bold;
 }
 
 .menu-buttons a {
+    min-height: 58px;
+    padding: 14px 20px;
+    border-radius: 10px;
     text-decoration: none;
     color: var(--bureau-wit);
+
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    min-height: 58px;
-    padding: 14px 20px;
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+
+    background-color: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(6px);
+    box-shadow: var(--shadow-sm);
     transition: var(--transition);
-    animation: fadeInUp 0.6s ease-out both;
+    animation: fadeInUp 0.5s ease-out both;
 }
 
-.menu-buttons a:nth-child(1) { animation-delay: 0.3s; }
-.menu-buttons a:nth-child(2) { animation-delay: 0.4s; }
-.menu-buttons a:nth-child(3) { animation-delay: 0.5s; }
-.menu-buttons a:nth-child(4) { animation-delay: 0.6s; }
+.menu-buttons a:nth-child(1) { animation-delay: 0.2s; }
+.menu-buttons a:nth-child(2) { animation-delay: 0.3s; }
 
 .menu-buttons a:hover {
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(255, 255, 255, 0.24);
     transform: translateY(-1px);
 }
 
 .menu-buttons p {
-    text-decoration: none;
     margin: 0;
-}
-
-.menu-buttons a::before {
-    content: "→";
-    margin-right: 10px;
-    opacity: 0;
-    transition: all 0.3s ease;
-    transform: translateX(-5px);
-}
-
-.menu-buttons a:hover::before {
-    opacity: 1;
-    transform: translateX(0);
+    font-size: clamp(22px, 5vw, 36px);
+    font-weight: 700;
+    line-height: 1;
 }
 
 @keyframes fadeInDown {

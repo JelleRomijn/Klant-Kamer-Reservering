@@ -1,29 +1,17 @@
-/* MARK: header
-*/
-
-.reserve-page {
-  width: min(92vw, 700px);
-  margin: 0 auto;
-  padding: 4vh 0 5vh;
-}
-
 body {
-  width: min(92vw, 700px);
+  width: min(92vw, 720px);
   margin: 0 auto;
   padding: 3vh 0 5vh;
 }
 
 .header {
-  height: auto;
-  width: 100%;
   margin-bottom: 2.5vh;
   display: flex;
   justify-content: center;
 }
 
 .header-logo {
-  height: auto;
-  width: min(42vw, 180px);
+  width: min(40vw, 170px);
   aspect-ratio: 1/1;
 }
 
@@ -33,35 +21,13 @@ body {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
 }
 
-.header-text-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  flex: 1;
-}
-
-.header-text {
-  color: var(--bureau-zwart);
-  font-size: 6vw;
-  font-weight: 700;
-}
-
-.header-text-wrapper p {
-  color: var(--bureau-grijs);
-  font-size: 3vw;
-  transform: none;
-  margin-top: 0.5vw;
-}
-
-/* MARK: RESERVE INFO */
 .reserve-info {
-  background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
-  color: var(--bureau-wit);
   width: 100%;
+  border-radius: 10px;
   padding: 18px;
-  border-radius: 8px;
   box-sizing: border-box;
+  color: var(--bureau-wit);
+  background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
   box-shadow: var(--shadow-sm);
 }
 
@@ -72,35 +38,29 @@ body {
 }
 
 .reserve-info p {
-  font-size: clamp(15px, 3.5vw, 19px);
-  line-height: 1.4;
-}
-
-.reserve-info p {
   color: rgba(255, 255, 255, 0.95);
   font-size: clamp(15px, 3.5vw, 19px);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-/* MARK: FORM */
 .form {
-  width: 100%;
   margin-top: 22px;
+}
 
-  display: flex;
-  flex-direction: column;
+.form-group {
+  position: relative;
+  margin-bottom: 30px;
 }
 
 .input-field {
   width: 100%;
   min-height: 42px;
   padding: 8px 6px;
-
   border: none;
   border-bottom: 1px solid #d0d0d0;
-
   font-size: clamp(16px, 3.8vw, 22px);
   background: transparent;
+  transition: var(--transition);
 }
 
 .input-field:focus {
@@ -108,25 +68,22 @@ body {
   border-bottom-color: var(--bureau-orange);
 }
 
-.lokaal-select {
+.lokaal-select,
+.type-select {
   color: var(--bureau-zwart);
 }
 
 .submit-button {
-  background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
-  color: var(--bureau-wit);
-
-  height: 50px;
   width: 100%;
-  margin-top: 8px;
-
-  font-size: clamp(17px, 4vw, 24px);
-  font-weight: bold;
-  font-family: "BUROTO", sans-serif;
-  
+  height: 50px;
+  margin-top: 6px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  color: var(--bureau-wit);
+  font-size: clamp(17px, 4vw, 24px);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
   transition: var(--transition);
 }
 
@@ -135,30 +92,12 @@ body {
   box-shadow: var(--shadow-md);
 }
 
-p a {
-  color: var(--bureau-orange);
-  font-weight: bold;
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-/*  MARK: FORM VALIDATION
-/* Validation */
-
-.form-group {
-  width: 100%;
-  position: relative;
-  margin-bottom: 30px;
-}
-
-/* MARK: FORM VALIDATION */
 .error-message {
   color: #ff3333;
   font-size: clamp(12px, 2.7vw, 15px);
   position: absolute;
   bottom: -20px;
   left: 0;
-  width: 100%;
 }
 
 @keyframes fadeInDown {

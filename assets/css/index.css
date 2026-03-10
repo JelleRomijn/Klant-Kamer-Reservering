@@ -1,534 +1,189 @@
-<<<<<<< HEAD
-:root {
-  --bureau-orange: #ff8f1c;
-  --bureau-orange-dark: #e67e0c;
-  --bureau-wit: #f4f4f4;
-  --bureau-zwart: #1a1a1a;
-  --bureau-grijs: #6c757d;
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+body {
+  background: #fafafa;
 }
 
-/* MARK: 1080PX */
-@media (max-width: 1080px) {
-  .reserve-header {
-    display: flex;
-    width: 85%;
-    height: 14vh;
-    padding: 0;
-    margin: 2vh 10vw 10vh 10vw;
-    align-items: center;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: var(--shadow-md);
-  }
-
-  .HETBUREAU-LOGO {
-    z-index: 100;
-    height: 100%;
-    padding: 2vh;
-  }
-
-  .HETBUREAU-LOGO img {
-    height: 100%;
-    width: auto;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-  }
-
-  .label:first-child {
-    border-radius: 0px 8px 8px 0px;
-  }
-
-  .label {
-    background-color: var(--bureau-zwart);
-    color: var(--bureau-wit);
-    height: 20%;
-    width: 200px;
-    font-size: large;
-    font-weight: bold;
-    padding: 0.5vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .current {
-    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
-    color: var(--bureau-wit);
-    height: 30%;
-    width: 300px;
-    font-size: 3.4em;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5vw;
-  }
-
-  .current:last-child {
-    transform: translate(-100px, 0);
-    padding-left: 100px;
-    width: 300px;
-  }
-
-  /* MARK: QR */
-  .qr {
-    color: var(--bureau-wit);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .qr p {
-    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
-    font-size: 1em;
-    font-weight: bold;
-    height: fit-content;
-    width: fit-content;
-    padding: 0.5vw 1vw;
-    border-radius: 4px;
-  }
-
-  .qr-box {
-    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
-    aspect-ratio: 1/1;
-    height: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    box-shadow: var(--shadow-md);
-  }
-
-  .qr-box img {
-    background-color: white;
-    height: calc(98% - 4px);
-    aspect-ratio: 1/1;
-    border-radius: 4px;
-  }
-}
-
-/* MARK: 1920PX
- */
-@media (min-width: 1920px) {
-  /* body {
-    background-color: blue;
-  } */
-
-  .reserve-header {
-    display: flex;
-
-    width: 90%;
-    height: 20vh;
-    padding: 0 0;
-    margin: 2vh 5vw 5vh 5vw;
-  }
-
-  .HETBUREAU-LOGO {
-    z-index: 100;
-    height: 100%;
-    /* width: 50%; */
-  }
-
-  .HETBUREAU-LOGO img {
-    height: 100%;
-    width: auto;
-  }
-
-  .time-date-info {
-    margin-right: 48vw;
-  }
-
-  .label:first-child {
-    border-radius: 0px 100px 0px 0px;
-  }
-
-  .label {
-    background-color: var(--bureau-zwart);
-    color: var(--bureau-wit);
-
-    /* height: 49.726px; */
-    height: 20%;
-    width: 200px;
-
-    font-size: large;
-    font-weight: bold;
-  }
-
-  .current {
-    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
-    color: var(--bureau-wit);
-
-    height: 30%;
-    width: 290px;
-
-    padding-left: 10px;
-
-    font-size: 2.6em;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .current:last-child {
-    transform: translate(-60px, 0);
-    padding-left: 70px;
-    width: 290px;
-  }
-
-  /* MARK: QR */
-  .qr {
-    color: var(--bureau-wit);
-
-    width: 100%;
-    height: 230.41px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .qr p {
-    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
-    font-size: 1em;
-    font-weight: bold;
-    height: fit-content;
-    width: fit-content;
-    padding: 0.5vw 1vw;
-    border-radius: 4px;
-  }
-
-  .qr-box {
-    background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
-    width: 100%;
-    aspect-ratio: 1/1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    box-shadow: var(--shadow-md);
-  }
-
-  .qr-box img {
-    background-color: white;
-
-    aspect-ratio: 1/1;
-    width: calc(98% - 4px);
-    border-radius: 4px;
-  }
-}
-
-/* MARK: VANDAAG KALENDER */
-.reserve-vandaag {
-  width: 80%;
-  height: 35vh;
-  padding: 0;
-  margin: 2vh 10vw 0vh 10vw;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-}
-
-.reserve-vandaag-tekst {
-  width: 100%;
-  height: 20%;
-  background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
-  border-radius: 8px 8px 0px 0px;
-  font-family: "BUROTO", sans-serif;
-  color: white;
-  font-size: 7rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-}
-
-=======
-/* ============================================
-   HERO SECTION
-   ============================================ */
 .hero {
   position: relative;
-  width: 100%;
-  min-height: 40vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
+  width: min(95vw, 1400px);
+  margin: 2vh auto 2.5vh;
+  border-radius: 14px;
   overflow: hidden;
+  background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
+  box-shadow: var(--shadow-md);
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.18), transparent 45%);
 }
 
 .hero-content {
   position: relative;
-  z-index: 2;
-  text-align: center;
-  width: 90%;
-  max-width: 800px;
-  padding: 3rem 2rem;
+  z-index: 1;
+  padding: 24px;
+  color: var(--bureau-wit);
+  display: grid;
+  gap: 14px;
+}
+
+.hero-logo {
+  width: min(30vw, 120px);
 }
 
 .hero-logo img {
-  height: 80px;
-  width: auto;
-  margin-bottom: 1.2rem;
-  transition: transform 0.3s ease;
-}
-
-.hero-logo img:hover {
-  transform: scale(1.05);
+  width: 100%;
+  aspect-ratio: 1/1;
 }
 
 .hero-title {
-  font-size: 3rem;
-  font-weight: 700;
-  color: rgba(0, 0, 0);
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.5px;
-  line-height: 1.1;
+  font-size: clamp(30px, 4vw, 54px);
+  line-height: 1.05;
 }
 
 .hero-sub {
-  font-size: 1.15rem;
-  color: rgba(0, 0, 0);
-  margin-bottom: 2rem;
-  font-weight: 400;
+  font-size: clamp(14px, 1.8vw, 22px);
+  max-width: 780px;
+  opacity: 0.95;
 }
 
-/* Buttons */
 .hero-actions {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .hero-btn {
+  min-height: 42px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transition);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 2rem;
-  border-radius: 50px;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.25s ease;
-  cursor: pointer;
-  border: 2px solid transparent;
 }
 
 .hero-btn.primary {
-  background: var(--bureau-orange);
-  color: #fff;
-  border-color: var(--bureau-orange);
-  box-shadow: 0 4px 15px rgba(255, 143, 28, 0.35);
-}
-
-.hero-btn.primary:hover {
-  background: #e67e00;
-  border-color: #e67e00;
-  box-shadow: 0 6px 20px rgba(255, 143, 28, 0.5);
-  transform: translateY(-2px);
+  background: var(--bureau-zwart);
+  color: var(--bureau-wit);
 }
 
 .hero-btn.secondary {
-  background: transparent;
-  color: var(--bureau-zwart);
-  border-color: rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--bureau-wit);
 }
 
-.hero-btn.secondary:hover {
-  border-color: var(--bureau-zwart);
-  background: rgba(0, 0, 0, 0.05);
-  transform: translateY(-2px);
+.hero-btn:hover {
+  transform: translateY(-1px);
 }
 
-/* Info Bar */
 .hero-info-bar {
+  margin-top: 6px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .info-chip {
+  min-height: 34px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.18);
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  background: rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: var(--bureau-zwart);
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  transition: background 0.2s;
-}
-
-.info-chip:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.info-chip svg {
-  flex-shrink: 0;
-  opacity: 0.8;
+  gap: 8px;
+  font-size: clamp(12px, 1.2vw, 14px);
 }
 
 .qr-chip {
-  cursor: pointer;
-  position: relative;
+  padding-right: 8px;
 }
 
 .mini-qr {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
+  background: white;
 }
 
-.qr-chip:hover .mini-qr {
-  transform: scale(2.5);
-  border-radius: 6px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  position: relative;
-  z-index: 10;
-}
-
-/* ============================================
-   SECTION TITLES (shared between vandaag & plus)
-   ============================================ */
 .reserve-vandaag,
 .reserve-plus {
-  width: 90%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0;
-  margin-bottom: 2rem;
-}
-
-.reserve-vandaag {
-  margin-top: 2.5rem;
+  width: min(95vw, 1400px);
+  margin: 0 auto 2vh;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .reserve-vandaag-tekst,
 .reserve-plus-tekst {
-  width: 100%;
-  padding: 0.8rem 0;
-  background: var(--bureau-orange);
-  border-radius: 16px 16px 0 0;
-  font-family: "BUROTO", sans-serif;
-  color: #ffffff;
-  font-size: 1.8rem;
+  min-height: 56px;
+  padding: 10px;
+  color: white;
+  font-size: clamp(24px, 3.2vw, 44px);
   font-weight: 700;
   display: flex;
-  align-items: center;
   justify-content: center;
-  letter-spacing: 2px;
-  text-transform: uppercase;
+  align-items: center;
+  background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
 }
 
-/* ============================================
-   RESERVERINGEN GRID (BOTH TABLES)
-   ============================================ */
 .reserveringen {
-  width: 100%;
-  background: var(--bureau-orange);
-  border-radius: 0 0 16px 16px;
-  padding-bottom: 4px;
-  overflow: hidden;
+  background: white;
+  padding: 8px;
 }
 
 .parent {
   display: grid;
-  grid-template-columns: 11% 16% 16% 13% 24% 18%;
-  grid-template-rows: auto repeat(5, 1fr);
-  gap: 2px;
-  width: calc(100% - 4px);
-  margin: 0 auto;
-  padding-top: 2px;
-  min-height: 280px;
+  grid-template-columns: 1.1fr 1fr 1fr 0.9fr 1.1fr 1.4fr;
+  grid-template-rows: repeat(6, minmax(44px, auto));
+  gap: 6px;
 }
 
-/* ============================================
-   VANDAAG GRID CELLS
-   ============================================ */
->>>>>>> feature/index
-[class^="vandaag-div"] {
-  background-color: #2a2a2a;
+[class^="vandaag-div"],
+[class^="plus-div"] {
+  border-radius: 6px;
+  background: #f4f4f4;
+  border: 1px solid #e6e6e6;
+  color: var(--bureau-zwart);
   display: flex;
-  align-items: center;
   justify-content: center;
-  font-family: "BUROTO", sans-serif;
-<<<<<<< HEAD
-  color: white;
-  font-size: 1.7rem;
-  line-break: anywhere;
-  border: 1px solid #444;
-  transition: all 0.3s ease;
-}
-
-[class^="vandaag-div"]:hover {
-  background-color: #333;
-  transform: scale(1.02);
-=======
-  color: #ffffff;
-  font-size: 1rem;
-  padding: 0.65rem 0.4rem;
+  align-items: center;
   text-align: center;
+  font-size: clamp(12px, 1.1vw, 16px);
+  padding: 6px;
   line-break: anywhere;
-  transition: background-color 0.15s ease;
->>>>>>> feature/index
 }
 
-/* Header row styling for vandaag */
 .vandaag-div1,
 .vandaag-div7,
 .vandaag-div13,
 .vandaag-div19,
 .vandaag-div25,
-.vandaag-div31 {
-  background-color: #2a2a2a;
+.vandaag-div31,
+.plus-div1,
+.plus-div7,
+.plus-div13,
+.plus-div19,
+.plus-div25,
+.plus-div31 {
+  background: #2a2a2a;
+  border-color: #2a2a2a;
+  color: white;
   font-weight: 700;
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--bureau-orange);
 }
 
-/* Data rows hover effect */
-.vandaag-div2:hover, .vandaag-div3:hover, .vandaag-div4:hover, .vandaag-div5:hover, .vandaag-div6:hover,
-.vandaag-div8:hover, .vandaag-div9:hover, .vandaag-div10:hover, .vandaag-div11:hover, .vandaag-div12:hover,
-.vandaag-div14:hover, .vandaag-div15:hover, .vandaag-div16:hover, .vandaag-div17:hover, .vandaag-div18:hover,
-.vandaag-div20:hover, .vandaag-div21:hover, .vandaag-div22:hover, .vandaag-div23:hover, .vandaag-div24:hover,
-.vandaag-div26:hover, .vandaag-div27:hover, .vandaag-div28:hover, .vandaag-div29:hover, .vandaag-div30:hover,
-.vandaag-div32:hover, .vandaag-div33:hover, .vandaag-div34:hover, .vandaag-div35:hover, .vandaag-div36:hover {
-  background-color: #2a2826;
-}
-
-/* Vandaag grid areas */
-.vandaag-div1  { grid-area: 1 / 1 / 2 / 2; }
-.vandaag-div2  { grid-area: 2 / 1 / 3 / 2; }
-.vandaag-div3  { grid-area: 3 / 1 / 4 / 2; }
-.vandaag-div4  { grid-area: 4 / 1 / 5 / 2; }
-.vandaag-div5  { grid-area: 5 / 1 / 6 / 2; }
-.vandaag-div6  { grid-area: 6 / 1 / 7 / 2; }
-.vandaag-div7  { grid-area: 1 / 2 / 2 / 3; }
-.vandaag-div8  { grid-area: 2 / 2 / 3 / 3; }
-.vandaag-div9  { grid-area: 3 / 2 / 4 / 3; }
+.vandaag-div1 { grid-area: 1 / 1 / 2 / 2; }
+.vandaag-div2 { grid-area: 2 / 1 / 3 / 2; }
+.vandaag-div3 { grid-area: 3 / 1 / 4 / 2; }
+.vandaag-div4 { grid-area: 4 / 1 / 5 / 2; }
+.vandaag-div5 { grid-area: 5 / 1 / 6 / 2; }
+.vandaag-div6 { grid-area: 6 / 1 / 7 / 2; }
+.vandaag-div7 { grid-area: 1 / 2 / 2 / 3; }
+.vandaag-div8 { grid-area: 2 / 2 / 3 / 3; }
+.vandaag-div9 { grid-area: 3 / 2 / 4 / 3; }
 .vandaag-div10 { grid-area: 4 / 2 / 5 / 3; }
 .vandaag-div11 { grid-area: 5 / 2 / 6 / 3; }
 .vandaag-div12 { grid-area: 6 / 2 / 7 / 3; }
@@ -557,59 +212,15 @@
 .vandaag-div35 { grid-area: 5 / 6 / 6 / 7; }
 .vandaag-div36 { grid-area: 6 / 6 / 7 / 7; }
 
-/* ============================================
-   PLUS GRID CELLS
-   ============================================ */
-[class^="plus-div"] {
-  background-color: #1d1c1a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "BUROTO", sans-serif;
-  color: #ffffff;
-  font-size: 1rem;
-  padding: 0.65rem 0.4rem;
-  text-align: center;
-  line-break: anywhere;
-  overflow: hidden;
-  transition: background-color 0.15s ease;
-}
-
-/* Header row styling for plus */
-.plus-div1,
-.plus-div7,
-.plus-div13,
-.plus-div19,
-.plus-div25,
-.plus-div31 {
-  background-color: #2a2a2a;
-  font-weight: 700;
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--bureau-orange);
-}
-
-/* Data rows hover effect */
-.plus-div2:hover, .plus-div3:hover, .plus-div4:hover, .plus-div5:hover, .plus-div6:hover,
-.plus-div8:hover, .plus-div9:hover, .plus-div10:hover, .plus-div11:hover, .plus-div12:hover,
-.plus-div14:hover, .plus-div15:hover, .plus-div16:hover, .plus-div17:hover, .plus-div18:hover,
-.plus-div20:hover, .plus-div21:hover, .plus-div22:hover, .plus-div23:hover, .plus-div24:hover,
-.plus-div26:hover, .plus-div27:hover, .plus-div28:hover, .plus-div29:hover, .plus-div30:hover,
-.plus-div32:hover, .plus-div33:hover, .plus-div34:hover, .plus-div35:hover, .plus-div36:hover {
-  background-color: #2a2826;
-}
-
-/* Plus grid areas */
-.plus-div1  { grid-area: 1 / 1 / 2 / 2; }
-.plus-div2  { grid-area: 2 / 1 / 3 / 2; }
-.plus-div3  { grid-area: 3 / 1 / 4 / 2; }
-.plus-div4  { grid-area: 4 / 1 / 5 / 2; }
-.plus-div5  { grid-area: 5 / 1 / 6 / 2; }
-.plus-div6  { grid-area: 6 / 1 / 7 / 2; }
-.plus-div7  { grid-area: 1 / 2 / 2 / 3; }
-.plus-div8  { grid-area: 2 / 2 / 3 / 3; }
-.plus-div9  { grid-area: 3 / 2 / 4 / 3; }
+.plus-div1 { grid-area: 1 / 1 / 2 / 2; }
+.plus-div2 { grid-area: 2 / 1 / 3 / 2; }
+.plus-div3 { grid-area: 3 / 1 / 4 / 2; }
+.plus-div4 { grid-area: 4 / 1 / 5 / 2; }
+.plus-div5 { grid-area: 5 / 1 / 6 / 2; }
+.plus-div6 { grid-area: 6 / 1 / 7 / 2; }
+.plus-div7 { grid-area: 1 / 2 / 2 / 3; }
+.plus-div8 { grid-area: 2 / 2 / 3 / 3; }
+.plus-div9 { grid-area: 3 / 2 / 4 / 3; }
 .plus-div10 { grid-area: 4 / 2 / 5 / 3; }
 .plus-div11 { grid-area: 5 / 2 / 6 / 3; }
 .plus-div12 { grid-area: 6 / 2 / 7 / 3; }
@@ -638,114 +249,17 @@
 .plus-div35 { grid-area: 5 / 6 / 6 / 7; }
 .plus-div36 { grid-area: 6 / 6 / 7 / 7; }
 
-/* ============================================
-   FOOTER SPACING
-   ============================================ */
-body {
-  padding-bottom: 3rem;
-  background: #ffffff;
-}
-
-/* ============================================
-   RESPONSIVE - Large screens (1920px+)
-   ============================================ */
-@media (min-width: 1920px) {
-  .hero {
-    min-height: 45vh;
-  }
-
-  .hero-title {
-    font-size: 4rem;
-  }
-
-  .hero-sub {
-    font-size: 1.3rem;
-  }
-
-  .hero-logo img {
-    height: 100px;
-  }
-
-  .reserve-vandaag-tekst,
-  .reserve-plus-tekst {
-    font-size: 2.2rem;
-    padding: 1rem 0;
-  }
-
-  [class^="vandaag-div"],
-  [class^="plus-div"] {
-    font-size: 1.2rem;
-    padding: 0.85rem 0.5rem;
-  }
-
-  .vandaag-div1, .vandaag-div7, .vandaag-div13, .vandaag-div19, .vandaag-div25, .vandaag-div31,
-  .plus-div1, .plus-div7, .plus-div13, .plus-div19, .plus-div25, .plus-div31 {
-    font-size: 1.1rem;
-  }
-
-  .parent {
-    min-height: 350px;
-  }
-}
-
-/* ============================================
-   RESPONSIVE - Small screens
-   ============================================ */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .hero-content {
-    padding: 2rem 1rem;
-  }
-
-  .hero-title {
-    font-size: 2rem;
-  }
-
-  .hero-sub {
-    font-size: 1rem;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .hero-btn {
-    width: 80%;
-    text-align: center;
-  }
-
-  .hero-info-bar {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .reserve-vandaag,
-  .reserve-plus {
-    width: 96%;
-  }
-
-  .reserve-vandaag-tekst,
-  .reserve-plus-tekst {
-    font-size: 1.3rem;
-    border-radius: 10px 10px 0 0;
-  }
-
-  [class^="vandaag-div"],
-  [class^="plus-div"] {
-    font-size: 0.75rem;
-    padding: 0.4rem 0.2rem;
-  }
-
-  .vandaag-div1, .vandaag-div7, .vandaag-div13, .vandaag-div19, .vandaag-div25, .vandaag-div31,
-  .plus-div1, .plus-div7, .plus-div13, .plus-div19, .plus-div25, .plus-div31 {
-    font-size: 0.7rem;
+    padding: 18px;
   }
 
   .parent {
-    min-height: 200px;
+    grid-template-columns: repeat(6, minmax(120px, 1fr));
+    min-width: 760px;
   }
 
   .reserveringen {
-    border-radius: 0 0 10px 10px;
+    overflow-x: auto;
   }
 }
