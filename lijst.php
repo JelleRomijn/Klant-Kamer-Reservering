@@ -1,3 +1,7 @@
+<?php
+require_once 'assets/core/require_login.php';
+require_user_login();
+?>
 <!DOCTYPE html>
 <html lang="en">
 

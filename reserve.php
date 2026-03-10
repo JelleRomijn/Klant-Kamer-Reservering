@@ -1,4 +1,7 @@
 <?php
+require_once 'assets/core/require_login.php';
+require_user_login();
+
 // Controleer of het formulier is verzonden
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include_once "assets/core/connect.php";

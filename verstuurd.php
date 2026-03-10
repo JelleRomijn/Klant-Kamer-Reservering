@@ -1,3 +1,7 @@
+<?php
+require_once 'assets/core/require_login.php';
+require_user_login();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,9 +17,6 @@
 
 <body>
     <?php
-    // Start de sessie om gegevens tussen pagina's te delen
-    session_start();
-
     // Controleer of er reserveringsgegevens in de sessie staan
     if (!isset($_SESSION['reservering'])) {
         // Als er geen gegevens zijn, stuur de gebruiker terug naar reserve.php
@@ -53,7 +54,7 @@
         <div class="status success">
             <h2>Reservering verstuurd</h2>
             <p>Uw reservering is verstuurd naar de beheerder</p>
-            <button class="submit-button" onclick="window.location.href='reserve.php'">TERUG NAAR HOMEPAGE</button>
+            <button class="submit-button" onclick="window.location.href='index.php'">TERUG NAAR HOMEPAGE</button>
         </div>
     <?php else: ?>
         <div class="status failed">
