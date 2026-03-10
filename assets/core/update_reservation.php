@@ -1,7 +1,7 @@
 <?php
 require_once "require_login.php";
 require_user_login(true);
-header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: application/json');
 
 // Database verbinding maken
 include_once "connect.php";
@@ -23,14 +23,30 @@ if ($id <= 0) {
     exit;
 }
 
-$allowed_fields = ['datum', 'start_tijd', 'eind_tijd', 'lokaal', 'student_nummer', 'klant', 'type'];
-$updateData = [];
+$allowedFields = ['datum', 'start_tijd', 'eind_tijd', 'lokaal', 'student_nummer', 'klant', 'type'];
+$filteredUpdateData = [];
 
-foreach ($data['data'] as $field => $value) {
-    if (!in_array($field, $allowed_fields, true)) {
-        continue;
+foreach ($updateData as $field => $value) {
+    if (in_array($field, $allowedFields, true)) {
+        $filteredUpdateData[$field] = $value;
     }
-    $updateData[$field] = is_string($value) ? trim($value) : $value;
+}
+
+if (empty($filteredUpdateData)) {
+    echo json_encode(['success' => false, 'message' => 'Geen geldige velden om bij te werken']);
+    exit;
+}
+
+// Bouw de SQL-query
+$sql = "UPDATE reserveringen SET ";
+$params = [];
+$types = "";
+
+// Voeg elke veld toe aan de query
+foreach ($filteredUpdateData as $field => $value) {
+    $sql .= "$field = ?, ";
+    $params[] = $value;
+    $types .= ($field === 'student_nummer') ? "i" : "s";
 }
 
 if (empty($updateData)) {
@@ -116,10 +132,15 @@ try {
     $params[] = $id;
     $types .= 'i';
 
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        throw new RuntimeException($conn->error);
-    }
+// Bereid de statement voor
+$stmt = $conn->prepare($sql);
+if ($stmt === false) {
+    echo json_encode(['success' => false, 'message' => 'Kon update query niet voorbereiden']);
+    $conn->close();
+    exit;
+}
+
+$stmt->bind_param($types, ...$params);
 
     $stmt->bind_param($types, ...$params);
     $result = $stmt->execute();
