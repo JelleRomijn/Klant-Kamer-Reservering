@@ -18,9 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $is_email = filter_var($login_input, FILTER_VALIDATE_EMAIL);
 
         if ($is_email) {
-            $query = "SELECT id, student_nummer, voornaam, achternaam, password FROM users WHERE email = ?";
+            $query = "SELECT id, nummer AS student_nummer, voornaam, achternaam, password FROM student WHERE email = ?";
         } else {
-            $query = "SELECT id, student_nummer, voornaam, achternaam, password FROM users WHERE student_nummer = ?";
+            $query = "SELECT id, nummer AS student_nummer, voornaam, achternaam, password FROM student WHERE nummer = ?";
         }
 
         try {

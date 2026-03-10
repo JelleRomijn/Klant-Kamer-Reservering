@@ -83,7 +83,10 @@ CREATE TABLE `student` (
   `id` int(11) NOT NULL,
   `nummer` int(6) NOT NULL,
   `voornaam` varchar(255) NOT NULL,
-  `achternaam` varchar(255) NOT NULL
+  `achternaam` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `gemaakt_op` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

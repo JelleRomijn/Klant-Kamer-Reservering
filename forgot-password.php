@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Gebruik een geldig e-mailadres of studentnummer.';
         } else {
             if ($is_email) {
-                $query = "SELECT id FROM users WHERE email = ?";
+                $query = "SELECT id FROM student WHERE email = ?";
             } else {
-                $query = "SELECT id FROM users WHERE student_nummer = ?";
+                $query = "SELECT id FROM student WHERE nummer = ?";
             }
 
             $stmt = $conn->prepare($query);
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $user = $result->fetch_assoc();
                 $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
 
-                $update_stmt = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
+                $update_stmt = $conn->prepare("UPDATE student SET password = ? WHERE id = ?");
                 $update_stmt->bind_param("si", $hashed_password, $user['id']);
 
                 if ($update_stmt->execute()) {
