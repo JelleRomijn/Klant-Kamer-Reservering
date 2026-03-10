@@ -2,29 +2,64 @@
 require_once 'assets/core/require_login.php';
 require_user_login();
 
+$logged_in_student_nummer = isset($_SESSION['student_nummer']) ? (string) $_SESSION['student_nummer'] : '';
+
 // Controleer of het formulier is verzonden
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include_once "assets/core/connect.php";
+    include_once "assets/core/reservation_conflicts.php";
 
     // Gegevens ophalen en in variabelen stoppen
-    $lokaal = htmlspecialchars($_POST['lokaal']);
-    $datum = htmlspecialchars($_POST['datum']);
-    $start_tijd = htmlspecialchars($_POST['start_tijd']);
-    $eind_tijd = htmlspecialchars($_POST['eind_tijd']);
-    $klant = htmlspecialchars($_POST['klant']);
-    $type = htmlspecialchars($_POST['type']);
-    $student_nummer = htmlspecialchars($_POST['student']); // Zorg ervoor dat het veilig is
+    $lokaal = trim($_POST['lokaal'] ?? '');
+    $datum = trim($_POST['datum'] ?? '');
+    $start_tijd = trim($_POST['start_tijd'] ?? '');
+    $eind_tijd = trim($_POST['eind_tijd'] ?? '');
+    $klant = trim($_POST['klant'] ?? '');
+    $type = trim($_POST['type'] ?? '');
+    $student_nummer = $logged_in_student_nummer;
 
-    // Gegevens in database invoegen
-    $sql = "INSERT INTO reserveringen (lokaal, datum, start_tijd, eind_tijd, klant, type, student_nummer)
-    VALUES ('$lokaal', '$datum', '$start_tijd', '$eind_tijd', '$klant', '$type', '$student_nummer')";
-
-    $success = true;
+    $success = false;
     $error_message = "";
 
-    if ($conn->query($sql) !== TRUE) {
-        $success = false;
-        $error_message = $conn->error;
+    if ($lokaal === '' || $datum === '' || $start_tijd === '' || $eind_tijd === '' || $klant === '' || $type === '' || $student_nummer === '') {
+        $error_message = "Vul alle velden in.";
+    } elseif (!preg_match('/^\d{6}$/', $student_nummer)) {
+        $error_message = "Studentnummer moet uit 6 cijfers bestaan.";
+    } elseif ($eind_tijd <= $start_tijd) {
+        $error_message = "Eindtijd moet na starttijd zijn.";
+    } else {
+        try {
+            $conflicts = find_conflicting_reservations($conn, $lokaal, $datum, $start_tijd, $eind_tijd);
+
+            if (!empty($conflicts)) {
+                $time_blocks = [];
+                foreach ($conflicts as $conflict) {
+                    $time_blocks[] = $conflict['lokaal'] . " (" . date('H:i', strtotime($conflict['start_tijd'])) . " - " . date('H:i', strtotime($conflict['eind_tijd'])) . ")";
+                }
+                $error_message = "Dit lokaal is al gereserveerd tijdens: " . implode(', ', $time_blocks) . ".";
+            } else {
+                $insert_sql = "INSERT INTO reserveringen (lokaal, datum, start_tijd, eind_tijd, klant, type, student_nummer)
+                               VALUES (?, ?, ?, ?, ?, ?, ?)";
+                $stmt = $conn->prepare($insert_sql);
+
+                if (!$stmt) {
+                    throw new RuntimeException("Kon reservering niet voorbereiden: " . $conn->error);
+                }
+
+                $student_nummer_int = (int) $student_nummer;
+                $stmt->bind_param("ssssssi", $lokaal, $datum, $start_tijd, $eind_tijd, $klant, $type, $student_nummer_int);
+
+                if ($stmt->execute()) {
+                    $success = true;
+                } else {
+                    $error_message = $stmt->error;
+                }
+
+                $stmt->close();
+            }
+        } catch (Throwable $exception) {
+            $error_message = $exception->getMessage();
+        }
     }
 
     // Sla de gegevens op in de sessie om ze in verstuurd.php te kunnen gebruiken
@@ -39,6 +74,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'success' => $success,
         'error_message' => $error_message
     ];
+
+    $conn->close();
 
     // Redirect naar verstuurd.php
     header("Location: verstuurd.php");
@@ -78,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="form">
         <form id="reservationForm" method="post" action="">
             <div class="form-group"> <!-- Input field for student nummer -->
-                <input class="input-field" type="text" name="student" placeholder="Student nummer" pattern="[0-9]{6}" maxlength="6" required>
+                <input class="input-field" type="text" name="student" value="<?php echo htmlspecialchars($logged_in_student_nummer); ?>" pattern="[0-9]{6}" maxlength="6" readonly required>
                 <div class="error-message" id="student-error"></div>
             </div>
             <div class="form-group"> <!-- Input field for Lokaal -->
