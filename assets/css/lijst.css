@@ -1,27 +1,17 @@
-/* MARK: header
-*/
-
-.lijst-page {
-  width: min(95vw, 1400px);
-  margin: 0 auto;
+body {
   padding: 2.5vh 0 4vh;
 }
 
-body {
-  padding: 2vh 0 4vh;
-}
-
 .header {
-  min-height: 16vh;
   width: min(95vw, 1400px);
-  margin: 0 auto;
-  margin-bottom: 2vh;
+  min-height: 16vh;
+  margin: 0 auto 2vh;
+  padding: 12px 16px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   gap: 18px;
-  padding: 12px 16px;
   background-color: white;
-  border-radius: 10px;
   box-shadow: var(--shadow-sm);
 }
 
@@ -39,16 +29,17 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
   gap: 4px;
 }
 
 .header-text {
   color: var(--bureau-zwart);
   font-size: clamp(32px, 4.2vw, 56px);
+  font-weight: 700;
 }
 
 .header-text-wrapper p {
+  color: var(--bureau-grijs);
   font-size: clamp(14px, 1.8vw, 22px);
 }
 
@@ -57,233 +48,176 @@ body {
   margin: 0 auto;
 }
 
-/* MARK: Content */
-/* MARK: Filter */
 .filter-bar {
-  background-color: var(--bureau-orange);
   min-height: 56px;
-  width: 100%;
-  margin: 0 auto;
   margin-bottom: 2vh;
-  
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
-  padding: 10px 12px;
-  box-sizing: border-box;
-  border-radius: 8px;
+  flex-wrap: wrap;
 }
 
-input,
-select {
-  border: none;
+.filter-bar input,
+.filter-bar select {
   min-height: 34px;
-  padding: 0 10px;
+  border: none;
   border-radius: 4px;
+  padding: 0 10px;
   font-size: clamp(13px, 1.2vw, 16px);
 }
 
 #zoek-filter {
-  min-width: min(40vw, 260px);
+  min-width: min(42vw, 280px);
 }
 
-input:focus,
-select:focus {
+.filter-bar input:focus,
+.filter-bar select:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(255, 143, 28, 0.2);
 }
 
-/* MARK: Table */
-th,
-td {
-  padding: 8px;
-  font-size: clamp(12px, 1vw, 16px);
-  font-family: "BUROTO", sans-serif;
-  text-align: left;
-}
-
-/* Wrapper to enable scrolling */
 .table-wrapper {
   height: 62vh;
   overflow-y: auto;
   background-color: white;
-  border-radius: 6px;
+  border-radius: 8px;
   box-shadow: var(--shadow-sm);
 }
 
-/* Ensure the table takes full width */
 table {
   width: 100%;
-  margin: 0 auto;
   border-collapse: collapse;
-  background-color: white;
 }
 
-/* Make the table header sticky */
 thead {
   position: sticky;
   top: 0;
+  z-index: 3;
   background: white;
-  z-index: 2;
-  border-top: 2px solid black;
+  border-top: 2px solid var(--bureau-zwart);
 }
 
-/* Ensure th elements are styled properly */
-th {
+th,
+td {
   padding: 10px;
-  font-size: clamp(13px, 1.2vw, 18px);
-  font-weight: bold;
-  background-color: white;
+  font-size: clamp(12px, 1vw, 16px);
   text-align: left;
-  outline: 2px rgb(255, 255, 255) solid;
+}
+
+th {
+  font-size: clamp(13px, 1.2vw, 18px);
+  font-weight: 700;
 }
 
 .table-item:nth-child(even) {
-  background-color: #d2d2d2;
+  background-color: #f3f3f3;
+}
+
+.item-edit,
+.item-delete {
+  width: 120px;
+  border: none;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  font-size: clamp(12px, 0.95vw, 15px);
 }
 
 .item-edit {
   background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
-  color: white;
-  
-  padding: 8px 16px;
-  width: auto;
-  min-width: 90px;
-  
-  border: none;
-  border-radius: 6px;
-  text-align: center;
-  cursor: pointer;
-  font-size: clamp(12px, 0.95vw, 15px);
 }
 
 .item-edit:hover {
   background: linear-gradient(135deg, var(--bureau-orange-dark) 0%, var(--bureau-orange) 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(255, 143, 28, 0.3);
 }
 
-.item-edit:active {
-  transform: translateY(0);
-}
-
-
-.item-delete {
-  background-color: red;
-  color: var(--bureau-wit);
-
-  width: 120px;
-
-  border: none;
-  border-radius: 5px;
-  text-align: center;
-  cursor: pointer;
-  font-size: clamp(12px, 0.95vw, 15px);
-}
-
-.item-delete:hover {
-  background-color: #df0202;
-}
-
-/* DATUM COLOM */
-.table-item td:nth-child(3),
-.table-header p:nth-child(3) {
-  width: 110px;
-  text-align: center;
-}
-
-/* START/EIND TIJD KOLOM */
-.table-item td:nth-child(4),
-.table-item td:nth-child(5),
-.table-item td:nth-child(6),
-.table-header p:nth-child(4),
-.table-header p:nth-child(5),
-.table-header p:nth-child(6) {
-  width: 100px;
-  text-align: center;
-}
-
-
-.table-item td:nth-child(8),
-.table-header p:nth-child(8) {
-  min-width: 300px;
-  width: fit-content;
-}
-/* MARK: buttons
-*/
-/* Aanvullende CSS voor edit functionaliteit */
 .item-edit.active {
   background-color: #4caf50;
 }
 
-/* Bewerkbare cellen */
+.item-delete {
+  background-color: #e10909;
+}
+
+.item-delete:hover {
+  background-color: #c90909;
+}
+
+.table-item td:nth-child(3) {
+  width: 120px;
+  text-align: center;
+}
+
+.table-item td:nth-child(4),
+.table-item td:nth-child(5),
+.table-item td:nth-child(6) {
+  width: 105px;
+  text-align: center;
+}
+
+.table-item td:nth-child(8) {
+  min-width: 260px;
+}
+
 .editable.editing {
   padding: 0 !important;
 }
 
-.editable.editing input {
+.editable.editing input,
+.editable.editing select {
   width: 100%;
   height: 100%;
   padding: 8px;
   border: none;
-  font-size: clamp(12px, 1vw, 16px);
-  font-family: "BUROTO", sans-serif;
   box-sizing: border-box;
+  font-size: clamp(12px, 1vw, 16px);
 }
 
-/* Modal styling */
+.editable.editing select {
+  background-color: #e8f4f8;
+}
+
 .modal {
   display: none;
   position: fixed;
   z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-  background-color: white;
-  margin: 15% auto;
+  width: min(92vw, 500px);
+  margin: 15vh auto;
+  background: white;
+  border-radius: 8px;
   padding: 20px;
-  border-radius: 5px;
-  width: 50%;
-  max-width: 500px;
 }
 
 .modal-buttons {
+  margin-top: 20px;
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 20px;
 }
 
 .modal-buttons button {
-  padding: 8px 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  padding: 8px 16px;
   cursor: pointer;
-  font-size: 16px;
 }
 
 #confirm-delete {
-  background-color: red;
+  background-color: #e10909;
   color: white;
 }
 
 #cancel-delete {
   background-color: #f0f0f0;
   color: #333;
-}
-.editable.editing select {
-  width: 100%;
-  height: 100%;
-  padding: 8px;
-  border: none;
-  font-size: clamp(12px, 1vw, 16px);
-  font-family: "BUROTO", sans-serif;
-  box-sizing: border-box;
-  background-color: #e8f4f8;
 }
