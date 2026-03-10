@@ -23,6 +23,19 @@ body {
   z-index: 1;
   padding: 24px;
   color: var(--bureau-wit);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hero-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 320px);
+  align-items: center;
+  gap: 20px;
+}
+
+.hero-left {
   display: grid;
   gap: 14px;
 }
@@ -45,6 +58,50 @@ body {
   font-size: clamp(14px, 1.8vw, 22px);
   max-width: 780px;
   opacity: 0.95;
+}
+
+.hero-qr-panel {
+  justify-self: end;
+  width: 100%;
+  max-width: 320px;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+  color: var(--bureau-wit);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+
+.hero-qr-panel:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.hero-qr-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.hero-qr-large {
+  width: min(100%, 230px);
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+  background: white;
+  padding: 8px;
+}
+
+.hero-qr-sub {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.95;
+  text-align: center;
 }
 
 .hero-actions {
@@ -95,17 +152,6 @@ body {
   align-items: center;
   gap: 8px;
   font-size: clamp(12px, 1.2vw, 14px);
-}
-
-.qr-chip {
-  padding-right: 8px;
-}
-
-.mini-qr {
-  width: 26px;
-  height: 26px;
-  border-radius: 4px;
-  background: white;
 }
 
 .reserve-vandaag,
@@ -252,6 +298,15 @@ body {
 @media (max-width: 900px) {
   .hero-content {
     padding: 18px;
+  }
+
+  .hero-main {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-qr-panel {
+    justify-self: start;
+    max-width: 280px;
   }
 
   .parent {

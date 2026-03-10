@@ -1,122 +1,146 @@
-/* MARK: LOGO */
+body {
+    padding: 24px 16px 40px;
+}
+
 .logo {
-    width: 60%;
-    aspect-ratio: 1/1;
-    margin-top: 5vw;
-    margin-inline: 20%;
-    margin-bottom: 10vw;
-    animation: fadeInDown 0.6s ease-out;
+    width: min(40vw, 180px);
+    margin: 0 auto 12px;
 }
 
 .logo img {
-    width: 60vw;
-    aspect-ratio: 1/1;
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+    width: 100%;
+    aspect-ratio: 1 / 1;
 }
 
-/* MARK: LOGIN */
-.login {
-    width: 100%;
-    min-height: calc(100vh - 50vw);
+.login-container {
+    width: min(92vw, 500px);
+    margin: 0 auto;
+    padding: 32px 24px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    animation: fadeIn 0.4s ease-out;
+}
+
+.login-container h2 {
+    text-align: center;
+    color: var(--bureau-zwart);
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    color: var(--bureau-zwart);
+    font-weight: 600;
+    font-size: 15px;
 }
 
 .input-field {
-    width: calc(100% - 10vw);
-    margin-inline: 5vw;
-    margin-bottom: 3vw;
-    
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid #e0e0e0;
-    font-size: 5vw;
-    padding: 12px 0;
+    min-height: 42px;
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
     font-family: "BUROTO", sans-serif;
     transition: var(--transition);
+    background-color: #fafafa;
 }
 
 .input-field:focus {
     outline: none;
-    border-bottom-color: var(--bureau-orange);
-    padding-bottom: 10px;
+    border-color: var(--bureau-orange);
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(255, 143, 28, 0.1);
 }
 
 .input-field::placeholder {
     color: #999;
 }
 
-.btn {
+.btn-login {
+    min-height: 46px;
+    padding: 12px;
     background: linear-gradient(135deg, var(--bureau-orange) 0%, var(--bureau-orange-dark) 100%);
-    color: var(--bureau-wit);
-    
-    height: 10vw;
-    width: calc(100% - 20vw);
-    margin-top: 5vw;
-    margin-inline: 10vw;
-    margin-bottom: 2vw;
-    
+    color: white;
     border: none;
     border-radius: 8px;
-    cursor: pointer;
-    
-    font-size: 6vw;
+    font-size: 16px;
     font-weight: bold;
     font-family: "BUROTO", sans-serif;
+    cursor: pointer;
+    margin-top: 10px;
     transition: var(--transition);
     box-shadow: var(--shadow-md);
 }
 
-.btn:hover {
+.btn-login:hover {
     background: linear-gradient(135deg, var(--bureau-orange-dark) 0%, var(--bureau-orange) 100%);
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
 }
 
-.btn:active {
+.btn-login:active {
     transform: translateY(0);
 }
 
 .error-message {
     background-color: #fff3cd;
     color: #856404;
-    padding: 15px 20px;
+    padding: 14px 16px;
     border-radius: 8px;
-    margin: 5vw;
-    margin-bottom: 3vw;
+    margin-bottom: 20px;
     border-left: 4px solid #ffc107;
-    font-size: 4vw;
-    text-align: center;
+    font-size: 14px;
     animation: slideInDown 0.3s ease-out;
 }
 
-p {
-    color: #666;
+.forgot-link,
+.register-link {
     text-align: center;
-    margin-bottom: 3vw;
-    font-size: 5vw;
-    line-height: 1.4;
+    color: var(--bureau-grijs);
+    font-size: 14px;
 }
 
-p a {
+.forgot-link {
+    margin-top: 18px;
+    margin-bottom: 6px;
+}
+
+.register-link {
+    margin-top: 0;
+}
+
+.forgot-link a,
+.register-link a {
     color: var(--bureau-orange);
     font-weight: bold;
     text-decoration: none;
     transition: var(--transition);
 }
 
-p a:hover {
+.forgot-link a:hover,
+.register-link a:hover {
     color: var(--bureau-orange-dark);
     text-decoration: underline;
 }
 
-.forgot-link {
-    margin-top: 1vw;
-    margin-bottom: 4vw;
-}
-
-@keyframes fadeInDown {
+@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateY(10px);
     }
     to {
         opacity: 1;

@@ -70,7 +70,7 @@ De volgende bestanden zijn geüpdatet:
 5. Ontvangt bevestigingsbericht
 6. Gaat naar **login.php** om in te loggen
 7. Voert e-mail of student nummer en wachtwoord in
-8. Wordt doorgestuurd naar **menu.php** na succesvolle login
+8. Wordt doorgestuurd naar **reserve.php** na succesvolle login
 
 ## Testen:
 

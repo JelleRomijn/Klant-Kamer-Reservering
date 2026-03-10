@@ -17,9 +17,8 @@
 
 ## Pages
 **index.php** - Deze pagina is de start pagina, hier word de reserveringen van vandaag en in de toekomst laten zien, De QR code verwijst je door naar *reserve.php*. Formaten in deze pagina zijn 1080x1920 en 1920x1080 maar moet ook voor telefoon en andere scherm formaten beschikbaar worden. <br>
-**lijst.php** - Deze pagina is voor docenten, Als edit enabled is kan je dubbel clicken op en veld en deze bewerken, Je kan ook de filters gebruiken, De search bar filtered op Datum, Tijd, Lokaal, Gepland door, Klant, Type. Formaten zijn Meeste computer horizontale schermen. <br>
+**lijst.php** - Deze pagina is voor docenten (niet zichtbaar in de frontend voor klanten), Als edit enabled is kan je dubbel clicken op en veld en deze bewerken, Je kan ook de filters gebruiken, De search bar filtered op Datum, Tijd, Lokaal, Gepland door, Klant, Type. Formaten zijn Meeste computer horizontale schermen. <br>
 **login-admin.php** - Deze pagina is de log in pagina voor docenten. Formaten zijn meeste telefoon schermen maar moet ook een computer pagina worden. <br>
-**login.php** - Deze pagina is voor studenten gemaakt maar word niet meer gebruikt maar als je inlogt zal deze je door verwijzen naar *menu.php*. Formaten zouden alle moeten worden maar is het niet <br>
-**menu.php** - Deze pagina is de landing pagina voor ingelogde studenten, Hier kan je je reserveringen bekijken en nieuwe aanmaken. Formaten zijn telefoons maar moet ook computer worden. <br>
+**login.php** - Deze pagina is voor studenten. Na inloggen word je direct doorgestuurd naar *reserve.php*. Formaten zouden alle moeten worden maar is het niet <br>
 **reserve.php** - Deze pagina kan je reserveringen aanmaken, je hebt meerdere velden. Formaten zijn telefoon (werkt ook wel op computers maar niet mooi) en moet alles worden. <br>
 **verstuurd.php** - Deze pagina word getoont als je hebt gereserveerd en dit succesvol/onsuccessvol is. Formaten zijn telefoon (werkt ook wel op computers maar niet mooi) en moet alles worden. <br>

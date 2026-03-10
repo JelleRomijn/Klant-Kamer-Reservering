@@ -1,6 +1,7 @@
 <?php
 require_once 'assets/core/connect.php';
 require_once 'assets/core/config.php';
+/** @var mysqli $conn */
 
 $error = '';
 $success = '';
@@ -37,40 +38,103 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif (strlen($password) < 6) {
             $error = 'Wachtwoord moet minimaal 6 tekens lang zijn.';
         } else {
-            // Check if student_nummer or email already exists
-            $check_query = "SELECT id FROM users WHERE student_nummer = ? OR email = ?";
-            $check_stmt = $conn->prepare($check_query);
-            $check_stmt->bind_param("is", $student_nummer, $email);
-            $check_stmt->execute();
-            $check_result = $check_stmt->get_result();
-
-            if ($check_result->num_rows > 0) {
-                $error = 'Student nummer of e-mailadres bestaat al.';
-                $check_stmt->close();
-            } else {
-                $check_stmt->close();
-                
-                // Hash the password
-                $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-                // Insert user into database
-                $insert_query = "INSERT INTO users (student_nummer, voornaam, achternaam, email, password) VALUES (?, ?, ?, ?, ?)";
-                $insert_stmt = $conn->prepare($insert_query);
-                $insert_stmt->bind_param("issss", $student_nummer, $voornaam, $achternaam, $email, $hashed_password);
-
-                if ($insert_stmt->execute()) {
-                    $success = 'Registratie succesvol! U kunt nu inloggen.';
-                    // Clear form fields
-                    $student_nummer = '';
-                    $voornaam = '';
-                    $achternaam = '';
-                    $email = '';
-                    $password = '';
-                    $password_confirm = '';
+            try {
+                // Check if student_nummer or email already exists
+                $check_query = "SELECT id FROM users WHERE student_nummer = ? OR email = ?";
+                $check_stmt = $conn->prepare($check_query);
+                if ($check_stmt === false) {
+                    $error = 'Er is een databasefout opgetreden. Probeer het later opnieuw.';
                 } else {
-                    $error = 'Er is een fout opgetreden bij het registreren. Probeer het later opnieuw.';
+                    $check_stmt->bind_param("is", $student_nummer, $email);
+                    $check_stmt->execute();
+                    $check_result = $check_stmt->get_result();
+
+                    if ($check_result->num_rows > 0) {
+                        $error = 'Student nummer of e-mailadres bestaat al.';
+                    } else {
+                        // Schrijf account naar users en student in 1 transaction.
+                        $conn->begin_transaction();
+
+                        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+                        $insert_user_query = "INSERT INTO users (student_nummer, voornaam, achternaam, email, password) VALUES (?, ?, ?, ?, ?)";
+                        $insert_user_stmt = $conn->prepare($insert_user_query);
+
+                        if ($insert_user_stmt === false) {
+                            $conn->rollback();
+                            $error = 'Er is een databasefout opgetreden. Probeer het later opnieuw.';
+                        } else {
+                            $insert_user_stmt->bind_param("issss", $student_nummer, $voornaam, $achternaam, $email, $hashed_password);
+
+                            if (!$insert_user_stmt->execute()) {
+                                $conn->rollback();
+                                $error = 'Er is een fout opgetreden bij het registreren. Probeer het later opnieuw.';
+                            } else {
+                                $student_exists_query = "SELECT id FROM student WHERE nummer = ? LIMIT 1";
+                                $student_exists_stmt = $conn->prepare($student_exists_query);
+
+                                if ($student_exists_stmt === false) {
+                                    $conn->rollback();
+                                    $error = 'Er is een databasefout opgetreden. Probeer het later opnieuw.';
+                                } else {
+                                    $student_exists_stmt->bind_param("i", $student_nummer);
+                                    $student_exists_stmt->execute();
+                                    $student_exists_result = $student_exists_stmt->get_result();
+
+                                    if ($student_exists_result->num_rows === 0) {
+                                        $insert_student_query = "INSERT INTO student (nummer, voornaam, achternaam) VALUES (?, ?, ?)";
+                                        $insert_student_stmt = $conn->prepare($insert_student_query);
+
+                                        if ($insert_student_stmt === false) {
+                                            $conn->rollback();
+                                            $error = 'Er is een databasefout opgetreden. Probeer het later opnieuw.';
+                                        } else {
+                                            $insert_student_stmt->bind_param("iss", $student_nummer, $voornaam, $achternaam);
+
+                                            if (!$insert_student_stmt->execute()) {
+                                                $conn->rollback();
+                                                $error = 'Er is een fout opgetreden bij het opslaan van studentgegevens.';
+                                            } else {
+                                                $conn->commit();
+                                                $success = 'Registratie succesvol! U kunt nu inloggen.';
+                                                // Clear form fields
+                                                $student_nummer = '';
+                                                $voornaam = '';
+                                                $achternaam = '';
+                                                $email = '';
+                                                $password = '';
+                                                $password_confirm = '';
+                                            }
+
+                                            $insert_student_stmt->close();
+                                        }
+                                    } else {
+                                        $conn->commit();
+                                        $success = 'Registratie succesvol! U kunt nu inloggen.';
+                                        // Clear form fields
+                                        $student_nummer = '';
+                                        $voornaam = '';
+                                        $achternaam = '';
+                                        $email = '';
+                                        $password = '';
+                                        $password_confirm = '';
+                                    }
+
+                                    $student_exists_stmt->close();
+                                }
+                            }
+
+                            $insert_user_stmt->close();
+                        }
+                    }
+                    $check_stmt->close();
                 }
-                $insert_stmt->close();
+            } catch (mysqli_sql_exception $e) {
+                if (stripos($e->getMessage(), "doesn't exist") !== false) {
+                    $error = 'Database tabel mist. Importeer eerst bureau_kamer.sql in phpMyAdmin.';
+                } else {
+                    $error = 'Er is een databasefout opgetreden. Probeer het later opnieuw.';
+                }
             }
         }
     }

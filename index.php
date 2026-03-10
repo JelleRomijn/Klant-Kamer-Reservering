@@ -44,15 +44,25 @@ $stmt->close();
     <section class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <div class="hero-logo">
-                <img src="Layer 2.png" alt="Het Bureau Logo">
+            <div class="hero-main">
+                <div class="hero-left">
+                    <div class="hero-logo">
+                        <img src="Layer 2.png" alt="Het Bureau Logo">
+                    </div>
+                    <h1 class="hero-title">Kamer Reservering</h1>
+                    <p class="hero-sub">Reserveer eenvoudig een vergaderruimte bij Het Bureau</p>
+                    <div class="hero-actions">
+                        <a href="login.php" class="hero-btn primary">Reserveer Nu</a>
+                    </div>
+                </div>
+
+                <a href="login.php" class="hero-qr-panel" aria-label="Scan de QR-code om te reserveren">
+                    <p class="hero-qr-title">Scan Hier</p>
+                    <img src="./assets/img/qr.png" alt="QR Code naar reserveren" class="hero-qr-large">
+                    <p class="hero-qr-sub">Open direct de reserveringspagina</p>
+                </a>
             </div>
-            <h1 class="hero-title">Kamer Reservering</h1>
-            <p class="hero-sub">Reserveer eenvoudig een vergaderruimte bij Het Bureau</p>
-            <div class="hero-actions">
-                <a href="login.php" class="hero-btn primary">Reserveer Nu</a>
-                <a href="lijst.php" class="hero-btn secondary">Bekijk Lijst</a>
-            </div>
+
             <div class="hero-info-bar">
                 <div class="info-chip">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -61,10 +71,6 @@ $stmt->close();
                 <div class="info-chip">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                     <span><?php echo date("d-m-Y"); ?></span>
-                </div>
-                <div class="info-chip qr-chip">
-                    <span>Scan QR</span>
-                    <img src="./assets/img/qr.png" alt="QR Code" class="mini-qr">
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 // Start the session
 session_start();
 require_once 'assets/core/connect.php';
+/** @var mysqli $conn */
 
 $error = '';
 
@@ -15,46 +16,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Check if input is email or student number
         $is_email = filter_var($login_input, FILTER_VALIDATE_EMAIL);
-        
+
         if ($is_email) {
             $query = "SELECT id, student_nummer, voornaam, achternaam, password FROM users WHERE email = ?";
         } else {
             $query = "SELECT id, student_nummer, voornaam, achternaam, password FROM users WHERE student_nummer = ?";
         }
 
-        $stmt = $conn->prepare($query);
-        
-        if ($is_email) {
-            $stmt->bind_param("s", $login_input);
-        } else {
-            $stmt->bind_param("i", $login_input);
-        }
-        
-        $stmt->execute();
-        $result = $stmt->get_result();
+        try {
+            $stmt = $conn->prepare($query);
 
-        if ($result->num_rows === 1) {
-            $user = $result->fetch_assoc();
-            
-            // Verify password
-            if (password_verify($password, $user['password'])) {
-                // Set session variables
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['student_nummer'] = $user['student_nummer'];
-                $_SESSION['voornaam'] = $user['voornaam'];
-                $_SESSION['achternaam'] = $user['achternaam'];
-                
-                // Redirect to menu or index
-                header("Location: menu.php");
-                exit();
+            if ($stmt === false) {
+                $error = 'Er is een databasefout opgetreden. Probeer het later opnieuw.';
             } else {
-                $error = 'Onjuist wachtwoord.';
+                if ($is_email) {
+                    $stmt->bind_param("s", $login_input);
+                } else {
+                    $stmt->bind_param("i", $login_input);
+                }
+
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows === 1) {
+                    $user = $result->fetch_assoc();
+
+                    // Verify password
+                    if (password_verify($password, $user['password'])) {
+                        // Set session variables
+                        $_SESSION['user_id'] = $user['id'];
+                        $_SESSION['student_nummer'] = $user['student_nummer'];
+                        $_SESSION['voornaam'] = $user['voornaam'];
+                        $_SESSION['achternaam'] = $user['achternaam'];
+
+                        // Redirect to reservation page
+                        header("Location: reserve.php");
+                        exit();
+                    } else {
+                        $error = 'Onjuist wachtwoord.';
+                    }
+                } else {
+                    $error = 'Gebruiker niet gevonden.';
+                }
+
+                $stmt->close();
             }
-        } else {
-            $error = 'Gebruiker niet gevonden.';
+        } catch (mysqli_sql_exception $e) {
+            if (stripos($e->getMessage(), "doesn't exist") !== false) {
+                $error = 'Database tabel mist. Importeer eerst bureau_kamer.sql in phpMyAdmin.';
+            } else {
+                $error = 'Er is een databasefout opgetreden. Probeer het later opnieuw.';
+            }
         }
-        
-        $stmt->close();
     }
 }
 ?>
@@ -78,21 +91,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <img src="Layer 2.png" alt="HETBUREAU-LOGO-ZWART">
     </div>
 
-    <div class="login">
+    <div class="login-container">
+        <h2>Inloggen</h2>
+
         <?php if (!empty($error)): ?>
             <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
 
-        <form method="POST" action="login.php">
-            <input type="text" name="login_input" placeholder="E-mailadres of Student Nummer" class="input-field" required>
-            <input type="password" name="password" placeholder="Wachtwoord" class="input-field" required>
-            <button type="submit" class="btn">Sign In</button>
+        <form method="POST" action="login.php" class="login-form">
+            <div class="form-group">
+                <label for="login_input">E-mailadres of Student Nummer:</label>
+                <input
+                    type="text"
+                    id="login_input"
+                    name="login_input"
+                    placeholder="bijv. student@school.nl of 123456"
+                    class="input-field"
+                    required
+                    value="<?php echo htmlspecialchars($login_input ?? ''); ?>"
+                    autocomplete="username"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Wachtwoord:</label>
+                <input type="password" id="password" name="password" placeholder="Voer je wachtwoord in" class="input-field" required autocomplete="current-password">
+            </div>
+
+            <button type="submit" class="btn-login">Inloggen</button>
         </form>
 
         <p class="forgot-link"><a href="forgot-password.php">Wachtwoord vergeten?</a></p>
-        <p>Nog geen account? <a href="register.php">Registreren</a></p>
-        
-        
+        <p class="register-link">Nog geen account? <a href="register.php">Registreren</a></p>
     </div>
 </body>
 
