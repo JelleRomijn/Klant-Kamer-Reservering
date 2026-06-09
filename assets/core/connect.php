@@ -1,9 +1,9 @@
 <?php
 
 
-$dbhost = "localhost";
+$dbhost = "mysql_db";
 $dbuser = "root";
-$dbpass = "";
+$dbpass = "root";
 $dbname = "bureau_kamer";
 
 $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);

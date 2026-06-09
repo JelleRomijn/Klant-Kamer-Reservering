@@ -1,6 +1,6 @@
 <?php
-require_once "require_login.php";
-require_user_login(true);
+require_once "require_admin_login.php";
+require_admin_login(true);
 header('Content-Type: application/json');
 
 // Database verbinding maken

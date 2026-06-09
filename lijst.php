@@ -1,6 +1,6 @@
 <?php
-require_once 'assets/core/require_login.php';
-require_user_login();
+require_once 'assets/core/require_admin_login.php';
+require_admin_login();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +23,7 @@ require_user_login();
         </div>
         <div class="header-text-wrapper">
             <h1 class="header-text">Beheren</h1>
-            <p>als <i>docent naam</i></p>
+            <p>als <i><?= htmlspecialchars($_SESSION['admin_naam'] ?? 'docent') ?></i></p>
         </div>
     </header>
     <div class="content">

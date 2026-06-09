@@ -39,46 +39,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'Wachtwoord moet minimaal 6 tekens lang zijn.';
         } else {
             try {
-                // Check if student nummer or email already exists in student accounts
-                $check_query = "SELECT id FROM student WHERE nummer = ? OR email = ?";
-                $check_stmt = $conn->prepare($check_query);
-                if ($check_stmt === false) {
-                    $error = 'Er is een databasefout opgetreden. Probeer het later opnieuw.';
-                } else {
-                    $check_stmt->bind_param("is", $student_nummer, $email);
-                    $check_stmt->execute();
-                    $check_result = $check_stmt->get_result();
+                $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-                    if ($check_result->num_rows > 0) {
-                        $error = 'Student nummer of e-mailadres bestaat al.';
+                // Check if the e-mail is already in use by another account
+                $email_stmt = $conn->prepare("SELECT id FROM student WHERE email = ?");
+                $email_stmt->bind_param("s", $email);
+                $email_stmt->execute();
+                $email_taken = $email_stmt->get_result()->num_rows > 0;
+                $email_stmt->close();
+
+                // Look up the student number (may be a pre-loaded account without password)
+                $num_stmt = $conn->prepare("SELECT id, password FROM student WHERE nummer = ?");
+                $num_stmt->bind_param("i", $student_nummer);
+                $num_stmt->execute();
+                $existing = $num_stmt->get_result()->fetch_assoc();
+                $num_stmt->close();
+
+                if ($email_taken) {
+                    $error = 'Dit e-mailadres is al in gebruik.';
+                } elseif ($existing && !empty($existing['password'])) {
+                    // Number already has a real account -> truly taken
+                    $error = 'Er bestaat al een account met dit student nummer. Log in of gebruik "wachtwoord vergeten".';
+                } elseif ($existing) {
+                    // Pre-loaded student without password: claim the account
+                    $update_stmt = $conn->prepare("UPDATE student SET voornaam = ?, achternaam = ?, email = ?, password = ? WHERE id = ?");
+                    $update_stmt->bind_param("ssssi", $voornaam, $achternaam, $email, $hashed_password, $existing['id']);
+
+                    if (!$update_stmt->execute()) {
+                        $error = 'Er is een fout opgetreden bij het registreren. Probeer het later opnieuw.';
                     } else {
-                        // Hash the password and store student account
-                        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-                        $insert_student_query = "INSERT INTO student (nummer, voornaam, achternaam, email, password) VALUES (?, ?, ?, ?, ?)";
-                        $insert_student_stmt = $conn->prepare($insert_student_query);
-
-                        if ($insert_student_stmt === false) {
-                            $error = 'Er is een databasefout opgetreden. Probeer het later opnieuw.';
-                        } else {
-                            $insert_student_stmt->bind_param("issss", $student_nummer, $voornaam, $achternaam, $email, $hashed_password);
-
-                            if (!$insert_student_stmt->execute()) {
-                                $error = 'Er is een fout opgetreden bij het registreren. Probeer het later opnieuw.';
-                            } else {
-                                $success = 'Registratie succesvol! U kunt nu inloggen.';
-                                // Clear form fields
-                                $student_nummer = '';
-                                $voornaam = '';
-                                $achternaam = '';
-                                $email = '';
-                                $password = '';
-                                $password_confirm = '';
-                            }
-                            $insert_student_stmt->close();
-                        }
+                        $success = 'Registratie succesvol! U kunt nu inloggen.';
+                        $student_nummer = $voornaam = $achternaam = $email = $password = $password_confirm = '';
                     }
-                    $check_stmt->close();
+                    $update_stmt->close();
+                } else {
+                    // Brand new student
+                    $insert_student_stmt = $conn->prepare("INSERT INTO student (nummer, voornaam, achternaam, email, password) VALUES (?, ?, ?, ?, ?)");
+                    $insert_student_stmt->bind_param("issss", $student_nummer, $voornaam, $achternaam, $email, $hashed_password);
+
+                    if (!$insert_student_stmt->execute()) {
+                        $error = 'Er is een fout opgetreden bij het registreren. Probeer het later opnieuw.';
+                    } else {
+                        $success = 'Registratie succesvol! U kunt nu inloggen.';
+                        $student_nummer = $voornaam = $achternaam = $email = $password = $password_confirm = '';
+                    }
+                    $insert_student_stmt->close();
                 }
             } catch (mysqli_sql_exception $e) {
                 if (stripos($e->getMessage(), "doesn't exist") !== false) {

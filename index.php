@@ -1,251 +1,197 @@
 <?php
-// Database verbinding maken
 include_once "assets/core/connect.php";
+date_default_timezone_set('Europe/Amsterdam');
 
-// Huidige datum in Y-m-d formaat
-$today = date("Y-m-d");
+$today    = date("Y-m-d");
+$min_rows = 5;
 
-// Query om reserveringen van vandaag op te halen, gesorteerd op starttijd (meest recente eerst)
-
-$sql = "SELECT * FROM reserveringen 
-        WHERE datum = ?
-        ORDER BY start_tijd DESC";
-
-$stmt = $conn->prepare($sql);
+$stmt = $conn->prepare("SELECT * FROM reserveringen WHERE datum = ? ORDER BY start_tijd ASC");
 $stmt->bind_param("s", $today);
 $stmt->execute();
-$result = $stmt->get_result();
-
-// Array om de reserveringen op te slaan
-$vandaag_reserveringen = [];
-while ($row = $result->fetch_assoc()) {
-    $vandaag_reserveringen[] = $row;
-}
-
-// Sluit de statement
+$vandaag_reserveringen = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 
+$stmt = $conn->prepare("SELECT * FROM reserveringen WHERE datum > ? ORDER BY datum ASC, start_tijd ASC");
+$stmt->bind_param("s", $today);
+$stmt->execute();
+$toekomstige_reserveringen = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
+$conn->close();
+
+$dagnamen_nl = [
+    'Monday'    => 'Maandag',   'Tuesday'  => 'Dinsdag',
+    'Wednesday' => 'Woensdag',  'Thursday' => 'Donderdag',
+    'Friday'    => 'Vrijdag',   'Saturday' => 'Zaterdag',
+    'Sunday'    => 'Zondag',
+];
+
+$vandaag_count     = count($vandaag_reserveringen);
+$toekomst_count    = count($toekomstige_reserveringen);
 ?>
-
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Het Bureau - Kamer Reservering</title>
+    <title>Het Bureau – Kamer Reservering</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="icon" type="image/x-icon" href="BUREAU-LOGO.ico">
 </head>
 <body>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <div class="hero-main">
-                <div class="hero-left">
-                    <div class="hero-logo">
-                        <img src="Layer 2.png" alt="Het Bureau Logo">
-                    </div>
-                    <h1 class="hero-title">Kamer Reservering</h1>
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-content">
+
+        <div class="hero-main">
+            <!-- Left: branding + CTA -->
+            <div class="hero-left">
+                <div class="hero-logo">
+                    <img src="Layer 2.png" alt="Het Bureau Logo">
+                </div>
+                <div class="hero-text">
+                    <h1 class="hero-title">Kamer<br>Reservering</h1>
                     <p class="hero-sub">Reserveer eenvoudig een vergaderruimte bij Het Bureau</p>
-                    <div class="hero-actions">
-                        <a href="login.php" class="hero-btn primary">Reserveer Nu</a>
-                    </div>
                 </div>
-
-                <a href="login.php" class="hero-qr-panel" aria-label="Scan de QR-code om te reserveren">
-                    <p class="hero-qr-title">Scan Hier</p>
-                    <img src="./assets/img/qr.png" alt="QR Code naar reserveren" class="hero-qr-large">
-                    <p class="hero-qr-sub">Open direct de reserveringspagina</p>
-                </a>
-            </div>
-
-            <div class="hero-info-bar">
-                <div class="info-chip">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                    <span><?php date_default_timezone_set('Europe/Amsterdam'); echo date("H:i"); ?></span>
-                </div>
-                <div class="info-chip">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    <span><?php echo date("d-m-Y"); ?></span>
+                <div class="hero-actions">
+                    <a href="login.php" class="hero-btn primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 7l4-4 4 4"/><path d="M12 3v13"/><path d="M20 21H4"/></svg>
+                        Reserveer Nu
+                    </a>
                 </div>
             </div>
+
+            <!-- Right: QR panel -->
+            <a href="login.php" class="hero-qr-panel" aria-label="Scan de QR-code om te reserveren">
+                <span class="hero-qr-label">Scan om te reserveren</span>
+                <div class="hero-qr-frame">
+                    <img src="./assets/img/qr.png" alt="QR Code" class="hero-qr-img">
+                </div>
+                <span class="hero-qr-sub">Open direct de reserveringspagina</span>
+            </a>
         </div>
-    </section>
 
-    <!-- VANDAAG KALENDER -->
-
-    <div class="reserve-vandaag">
-        <div class="reserve-vandaag-tekst">
-            VANDAAG:
+        <!-- Bottom info bar -->
+        <div class="hero-info-bar">
+            <div class="info-chip">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span id="live-time"><?php echo date("H:i"); ?></span>
+            </div>
+            <div class="info-chip">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span><?php echo date("d-m-Y"); ?></span>
+            </div>
+            <div class="info-chip accent">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span><?php echo $vandaag_count; ?> vandaag &nbsp;·&nbsp; <?php echo $toekomst_count; ?> aankomend</span>
+            </div>
         </div>
-        <div class="reserveringen">
-            <div class="parent">
-                <div class="vandaag-div1">Datum</div>
-                <div class="vandaag-div7">Start Tijd</div>
-                <div class="vandaag-div13">Eind Tijd</div>
-                <div class="vandaag-div19">Lokaal</div>
-                <div class="vandaag-div25">Gepland door</div>
-                <div class="vandaag-div31">Met wie</div>
 
-                <?php
-                // Maximaal 5 reserveringen tonen (rij 2 t/m 6)
-                $max_rows = 5;
-                $row_count = 0;
+    </div>
+</section>
 
-                foreach ($vandaag_reserveringen as $index => $reservering) {
-                    if ($row_count >= $max_rows)
-                        break;
+<!-- ═══════════════════════════════ VANDAAG ═══════════════════════════════ -->
+<div class="section-wrap">
+    <div class="section-head">
+        <div class="section-head-left">
+            <div class="section-icon orange">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h2 class="section-title">Vandaag</h2>
+        </div>
+        <span class="section-badge"><?php echo $vandaag_count; ?> reservering<?php echo $vandaag_count !== 1 ? 'en' : ''; ?></span>
+    </div>
 
-                    // Bereken de rij (2, 3, 4, 5, 6)
-                    $row_num = $row_count + 2;
-
-                    // Formatteer de datum naar d-m-Y
-                    $formatted_date = date("d-m-Y", strtotime($reservering['datum']));
-
-                    // Toon de gegevens in de juiste cellen
-                
-                    echo '<div class="vandaag-div' . $row_num . '">Vandaag</div>';
-                    echo '<div class="vandaag-div' . ($row_num + 6) . '">' . date('H:i', strtotime($reservering['start_tijd'])) . '</div>';
-                    echo '<div class="vandaag-div' . ($row_num + 12) . '">' . date('H:i', strtotime($reservering['eind_tijd'])) . '</div>';
-                    echo '<div class="vandaag-div' . ($row_num + 18) . '">' . $reservering['lokaal'] . '</div>';
-                    echo '<div class="vandaag-div' . ($row_num + 24) . '">' . $reservering['student_nummer'] . '</div>';
-                    echo '<div class="vandaag-div' . ($row_num + 30) . '">' . $reservering['klant'] . '</div>';
-
-
-                    $row_count++;
-                }
-
-                // Vul de rest van de rijen met lege cellen als er minder dan 5 reserveringen zijn
-                for ($i = $row_count; $i < $max_rows; $i++) {
-                    $row_num = $i + 2;
-                    echo '<div class="vandaag-div' . $row_num . '"></div>';
-                    echo '<div class="vandaag-div' . ($row_num + 6) . '"></div>';
-                    echo '<div class="vandaag-div' . ($row_num + 12) . '"></div>';
-                    echo '<div class="vandaag-div' . ($row_num + 18) . '"></div>';
-                    echo '<div class="vandaag-div' . ($row_num + 24) . '"></div>';
-                    echo '<div class="vandaag-div' . ($row_num + 30) . '"></div>';
-                }
-                ?>
+    <div class="grid-card">
+        <div class="grid-header">
+            <div class="cell header">Datum</div>
+            <div class="cell header">Start</div>
+            <div class="cell header">Eind</div>
+            <div class="cell header">Lokaal</div>
+            <div class="cell header">Gepland door</div>
+            <div class="cell header">Met wie</div>
+        </div>
+        <div class="grid-body-wrap">
+            <div class="grid-body" data-min-rows="<?= $min_rows ?>">
+                <?php foreach ($vandaag_reserveringen as $r): ?>
+                    <div class="cell filled">Vandaag</div>
+                    <div class="cell filled"><?= date('H:i', strtotime($r['start_tijd'])) ?></div>
+                    <div class="cell filled"><?= date('H:i', strtotime($r['eind_tijd'])) ?></div>
+                    <div class="cell filled lokaal"><?= htmlspecialchars($r['lokaal']) ?></div>
+                    <div class="cell filled"><?= htmlspecialchars($r['student_nummer']) ?></div>
+                    <div class="cell filled"><?= htmlspecialchars($r['klant']) ?></div>
+                <?php endforeach; ?>
+                <?php for ($i = $vandaag_count; $i < $min_rows; $i++): ?>
+                    <div class="cell empty"></div>
+                    <div class="cell empty"></div>
+                    <div class="cell empty"></div>
+                    <div class="cell empty"></div>
+                    <div class="cell empty"></div>
+                    <div class="cell empty"></div>
+                <?php endfor; ?>
             </div>
         </div>
     </div>
+</div>
 
-    <?php
-    // Query om toekomstige reserveringen op te halen, gesorteerd op datum en starttijd
-    $sql = "SELECT * FROM reserveringen
-    WHERE datum > ?
-    ORDER BY datum ASC, start_tijd ASC
-    LIMIT 5";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $today);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    // Array om de reserveringen op te slaan
-    $toekomstige_reserveringen = [];
-    while ($row = $result->fetch_assoc()) {
-        $toekomstige_reserveringen[] = $row;
-    }
-
-    // Sluit de statement
-    $stmt->close();
-    $conn->close();
-    ?>
-
-    <!-- PLUS KALENDER -->
-    <div class="reserve-plus">
-        <div class="reserve-plus-tekst">
-            RESERVERINGEN
+<!-- ═══════════════════════════════ AANKOMEND ═══════════════════════════════ -->
+<div class="section-wrap">
+    <div class="section-head">
+        <div class="section-head-left">
+            <div class="section-icon dark">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <h2 class="section-title">Aankomende Reserveringen</h2>
         </div>
-        <div class="reserveringen">
-            <div class="parent">
-                <div class="plus-div1">Datum</div>
-                <div class="plus-div7">Start Tijd</div>
-                <div class="plus-div13">Eind Tijd</div>
-                <div class="plus-div19">Lokaal</div>
-                <div class="plus-div25">Gepland door</div>
-                <div class="plus-div31">Met wie</div>
+        <span class="section-badge"><?php echo $toekomst_count; ?> reservering<?php echo $toekomst_count !== 1 ? 'en' : ''; ?></span>
+    </div>
 
-                <?php
-                // Maximaal 5 reserveringen tonen (rij 2 t/m 6)
-                $max_rows = 5;
-                $row_count = 0;
+    <div class="grid-card">
+        <div class="grid-header">
+            <div class="cell header">Datum</div>
+            <div class="cell header">Start</div>
+            <div class="cell header">Eind</div>
+            <div class="cell header">Lokaal</div>
+            <div class="cell header">Gepland door</div>
+            <div class="cell header">Met wie</div>
+        </div>
+        <div class="grid-body-wrap">
+            <div class="grid-body" data-min-rows="<?= $min_rows ?>">
+                <?php foreach ($toekomstige_reserveringen as $r):
+                    $res_datum  = new DateTime($r['datum']);
+                    $vandaag_dt = new DateTime($today);
+                    $diff       = (int) $res_datum->diff($vandaag_dt)->days;
 
-                foreach ($toekomstige_reserveringen as $index => $reservering) {
-                    if ($row_count >= $max_rows)
-                        break;
-
-                    // Bereken de rij (2, 3, 4, 5, 6)
-                    $row_num = $row_count + 2;
-
-                    // Bereken het verschil in dagen tussen nu en de reserveringsdatum
-                    $reservering_datum = new DateTime($reservering['datum']);
-                    $vandaag = new DateTime($today);
-                    $verschil = $reservering_datum->diff($vandaag)->days;
-
-                    // Bepaal hoe de datum moet worden weergegeven
-                    if ($verschil < 7) {
-                        // Voor datums binnen 7 dagen, toon de dagnaam
-                        $dagnaam = $reservering_datum->format('l'); // Geeft de Engelse dagnaam
-                
-                        // Vertaal de Engelse dagnaam naar Nederlands indien gewenst
-                        $dagnamen_nl = [
-                            'Monday' => 'Maandag',
-                            'Tuesday' => 'Dinsdag',
-                            'Wednesday' => 'Woensdag',
-                            'Thursday' => 'Donderdag',
-                            'Friday' => 'Vrijdag',
-                            'Saturday' => 'Zaterdag',
-                            'Sunday' => 'Zondag'
-                        ];
-
-                        $dagnaam_nl = $dagnamen_nl[$dagnaam];
-
-                        // Als het morgen is, toon "Morgen" in plaats van de dagnaam
-                        if ($verschil == 1) {
-                            $datum_tekst = "Morgen";
-                        } else {
-                            $datum_tekst = $dagnaam_nl;
-                        }
+                    if ($diff < 7) {
+                        $dag = $dagnamen_nl[$res_datum->format('l')] ?? $res_datum->format('l');
+                        $datum_tekst = ($diff === 1) ? 'Morgen' : $dag;
                     } else {
-                        // Voor datums verder dan 7 dagen, toon de normale datum
-                        $datum_tekst = date("d-m-Y", strtotime($reservering['datum']));
+                        $datum_tekst = date("d-m-Y", strtotime($r['datum']));
                     }
-
-                    // Toon de gegevens in de juiste cellen
-                    echo '<div class="plus-div' . ($row_num) . '">' . $datum_tekst . '</div>';
-                    echo '<div class="plus-div' . ($row_num + 6) . '">' . date('H:i', strtotime($reservering['start_tijd'])) . '</div>';
-                    echo '<div class="plus-div' . ($row_num + 12) . '">' . date('H:i', strtotime($reservering['eind_tijd'])) . '</div>';
-                    echo '<div class="plus-div' . ($row_num + 18) . '">' . $reservering['lokaal'] . '</div>';
-                    echo '<div class="plus-div' . ($row_num + 24) . '">' . $reservering['student_nummer'] . '</div>';
-                    echo '<div class="plus-div' . ($row_num + 30) . '">' . $reservering['klant'] . '</div>';
-
-                    $row_count++;
-                }
-
-                // Vul de rest van de rijen met lege cellen als er minder dan 5 reserveringen zijn
-                for ($i = $row_count; $i < $max_rows; $i++) {
-                    $row_num = $i + 2;
-                    echo '<div class="plus-div' . ($row_num) . '"></div>';
-                    echo '<div class="plus-div' . ($row_num + 6) . '"></div>';
-                    echo '<div class="plus-div' . ($row_num + 12) . '"></div>';
-                    echo '<div class="plus-div' . ($row_num + 18) . '"></div>';
-                    echo '<div class="plus-div' . ($row_num + 24) . '"></div>';
-                    echo '<div class="plus-div' . ($row_num + 30) . '"></div>';
-                }
                 ?>
-
+                    <div class="cell filled"><?= htmlspecialchars($datum_tekst) ?></div>
+                    <div class="cell filled"><?= date('H:i', strtotime($r['start_tijd'])) ?></div>
+                    <div class="cell filled"><?= date('H:i', strtotime($r['eind_tijd'])) ?></div>
+                    <div class="cell filled lokaal"><?= htmlspecialchars($r['lokaal']) ?></div>
+                    <div class="cell filled"><?= htmlspecialchars($r['student_nummer']) ?></div>
+                    <div class="cell filled"><?= htmlspecialchars($r['klant']) ?></div>
+                <?php endforeach; ?>
+                <?php for ($i = $toekomst_count; $i < $min_rows; $i++): ?>
+                    <div class="cell empty"></div>
+                    <div class="cell empty"></div>
+                    <div class="cell empty"></div>
+                    <div class="cell empty"></div>
+                    <div class="cell empty"></div>
+                    <div class="cell empty"></div>
+                <?php endfor; ?>
             </div>
         </div>
     </div>
+</div>
 
-
+<script src="assets/js/index.js"></script>
 </body>
-<!-- <script src="assets/js/bla.js"></script> -->
-
 </html>

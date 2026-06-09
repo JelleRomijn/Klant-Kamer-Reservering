@@ -3,10 +3,12 @@
 // Define the allowed subnets (CIDR) that are permitted to register.
 // Update these entries to match your building's Wi-Fi network ranges.
 $ALLOWED_SUBNETS = [
-    // Example private network ranges (adjust to your environment):
-    '192.168.1.0/24',
+    // Building / home Wi-Fi ranges (adjust to your environment):
+    '192.168.0.0/16',
     '10.0.0.0/8',
     '172.16.0.0/12',
+    // Docker Desktop host gateway (local development on macOS/Windows)
+    '192.168.65.0/24',
     // Allow localhost testing (IPv4 loopback)
     '127.0.0.0/8',
 ];
