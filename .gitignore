@@ -1,0 +1,2 @@
+# Lokale, machine-specifieke database configuratie (niet committen)
+assets/core/db_config.local.php

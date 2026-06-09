@@ -1,10 +1,22 @@
 <?php
 
 
-$dbhost = "mysql_db";
-$dbuser = "root";
-$dbpass = "root";
-$dbname = "bureau_kamer";
+// Laad lokale config indien aanwezig, anders het voorbeeld (standaard XAMPP/MAMP).
+$local_config   = __DIR__ . "/db_config.local.php";
+$example_config = __DIR__ . "/db_config.example.php";
+
+if (file_exists($local_config)) {
+    $db = require $local_config;
+} elseif (file_exists($example_config)) {
+    $db = require $example_config;
+} else {
+    $db = ['host' => 'localhost', 'user' => 'root', 'pass' => '', 'name' => 'bureau_kamer'];
+}
+
+$dbhost = $db['host'];
+$dbuser = $db['user'];
+$dbpass = $db['pass'];
+$dbname = $db['name'];
 
 $conn = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 
